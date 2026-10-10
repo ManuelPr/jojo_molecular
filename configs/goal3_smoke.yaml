@@ -1,0 +1,17 @@
+seed: 2026
+max_scan_rows: 300000
+spectra_per_identity: 3
+validation_fraction: 0.25
+controlled_catalog_size: 4096
+realistic_catalog_size: 50000
+candidate_pool_size: 1000
+max_peaks: 256
+mass_tolerance_ppm: 20.0
+peak_tolerance_da: 0.02
+fingerprint_bits: 512
+fingerprint_folds: 3
+fingerprint_epochs: 12
+fingerprint_batch_size: 16
+hard_negatives_per_query: 64
+bootstrap_samples: 500
+device: cuda

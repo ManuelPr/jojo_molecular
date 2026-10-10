@@ -1,0 +1,8 @@
+seed: 2026
+top_k: 100
+mass_tolerance_ppm: 20.0
+peak_tolerance_da: 0.02
+intensity_floor: 0.001
+max_peaks: 256
+internet: false
+

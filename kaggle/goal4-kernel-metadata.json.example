@@ -1,0 +1,15 @@
+{
+  "id": "YOUR_USERNAME/casmi26-goal4-spectral-ranking",
+  "title": "CASMI26 Goal4 Spectral Ranking",
+  "code_file": "run_goal4.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": false,
+  "dataset_sources": ["YOUR_USERNAME/casmi26-baseline-assets"],
+  "competition_sources": ["enveda-CASMI26-molecule-id-mass-spectra"],
+  "kernel_sources": [],
+  "model_sources": []
+}
+

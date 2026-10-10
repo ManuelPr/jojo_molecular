@@ -1,0 +1,12 @@
+profile: kaggle_inference
+seed: 2026
+top_k: 25
+candidate_pool_size: 100
+analog_top_k: 5
+mass_tolerance_ppm: 20.0
+peak_tolerance_da: 0.02
+max_peaks: 256
+internet: false
+gpu_required: false
+submission_requires_explicit_human_approval: true
+

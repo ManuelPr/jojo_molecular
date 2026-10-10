@@ -1,0 +1,12 @@
+seed: 2026
+max_identities: 128
+max_scan_rows: 300000
+max_catalog_structures: 4096
+spectra_per_identity: 3
+validation_fraction: 0.25
+candidate_pool_size: 1000
+mass_tolerance_ppm: 20.0
+peak_tolerance_da: 0.02
+intensity_floor: 0.001
+max_peaks: 256
+bootstrap_samples: 500

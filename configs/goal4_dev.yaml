@@ -1,0 +1,12 @@
+profile: dev
+seed: 2026
+max_scan_rows: 50000
+spectra_per_identity: 3
+realistic_catalog_size: 10000
+candidate_pool_size: 100
+analog_top_k: 3
+bootstrap_samples: 100
+ranker_backend: hist_gbdt
+internet: false
+gpu_required: false
+

@@ -1,0 +1,12 @@
+profile: experiment
+seed: 2026
+max_scan_rows: 300000
+spectra_per_identity: 3
+realistic_catalog_size: 50000
+candidate_pool_size: 100
+analog_top_k: 5
+bootstrap_samples: 1000
+ranker_backend: lightgbm
+internet: false
+gpu_required: false
+

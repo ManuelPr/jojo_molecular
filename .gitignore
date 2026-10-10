@@ -1,0 +1,33 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Competition data and generated artifacts
+data/*.parquet
+data/*.csv
+artifacts/**
+!artifacts/.gitkeep
+submission.csv
+
+# Secrets and local Kaggle state
+.env
+*.token
+kaggle.json
+access_token
+
+# Generated Kaggle upload bundles
+kaggle/assets/
+kaggle/cache/
+kaggle/casmi26/
+kaggle/kernel-metadata.json
+kaggle/validation-kernel-metadata.json
+kaggle/goal3-kernel-metadata.json
+kaggle/validation_bundle/
+kaggle/goal3_bundle/
+kaggle/dataset-metadata.json
+dist/

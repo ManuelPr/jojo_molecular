@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "casmi26-baseline"
+version = "0.1.0"
+description = "Reproducible baseline for Enveda CASMI 2026"
+requires-python = ">=3.11,<3.14"
+dependencies = [
+  "joblib>=1.5,<2",
+  "numpy>=2.0,<3",
+  "pandas>=2.2,<4",
+  "pyarrow>=18,<24",
+  "rdkit==2026.3.3",
+  "scikit-learn>=1.6,<2",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3,<10",
+  "pytest-cov>=6,<8",
+]
+goal3 = [
+  "lightgbm>=4.5,<5",
+  "psutil>=6,<8",
+  "torch>=2.6,<3",
+]
+
+[project.scripts]
+casmi26 = "casmi26.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/casmi26"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+markers = [
+  "integration: component integration tests using generated fixtures",
+  "real_data: read-only contract checks against competition parquet files",
+]
