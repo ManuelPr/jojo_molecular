@@ -1,0 +1,18 @@
+{
+  "id": "mperni/casmi26-recovery-c1-frozen-e6",
+  "title": "CASMI26 Recovery C1 Frozen E6",
+  "code_file": "recovery_kernel.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": false,
+  "dataset_sources": [
+    "mperni/casmi26-baseline-assets"
+  ],
+  "competition_sources": [
+    "enveda-CASMI26-molecule-id-mass-spectra"
+  ],
+  "kernel_sources": [],
+  "model_sources": []
+}

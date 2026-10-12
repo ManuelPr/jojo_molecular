@@ -77,9 +77,10 @@ def mz_from_neutral_mass(neutral_mass: float, adduct: str) -> float | None:
 def canonical_inchikey14(smiles: str) -> str | None:
     """Return the competition comparison key for a SMILES string.
 
-    This mirrors the official scorer: parse with RDKit, canonicalize the
-    tautomer with default ``TautomerEnumerator`` settings, then use the first
-    block of the InChIKey.
+    This mirrors the official scorer: parse with RDKit, remove
+    stereochemistry, canonicalize the tautomer with default
+    ``TautomerEnumerator`` settings, then use the first block of the
+    InChIKey.
     """
 
     if not isinstance(smiles, str) or not smiles.strip():
@@ -88,6 +89,7 @@ def canonical_inchikey14(smiles: str) -> str | None:
         mol = Chem.MolFromSmiles(smiles)
         if mol is None:
             return None
+        Chem.RemoveStereochemistry(mol)
         canonical = rdMolStandardize.TautomerEnumerator().Canonicalize(mol)
         key = Chem.MolToInchiKey(canonical)
         return key[:14] if key else None
@@ -103,8 +105,13 @@ def canonical_smiles(smiles: str) -> str | None:
         mol = Chem.MolFromSmiles(smiles)
         if mol is None:
             return None
+        # Submission SMILES use the same stereo-insensitive normalization as
+        # the official InChIKey14 scorer. This prevents output validation from
+        # treating stereoisomers as distinct candidates when the metric does
+        # not.
+        Chem.RemoveStereochemistry(mol)
         canonical = rdMolStandardize.TautomerEnumerator().Canonicalize(mol)
-        return Chem.MolToSmiles(canonical, canonical=True, isomericSmiles=True)
+        return Chem.MolToSmiles(canonical, canonical=True, isomericSmiles=False)
     except Exception:
         return None
 

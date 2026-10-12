@@ -70,5 +70,13 @@ def test_tautomer_canonical_key_and_invalid_smiles() -> None:
     assert canonical_inchikey14("not-a-smiles") is None
 
 
+def test_official_scorer_removes_stereochemistry_before_tautomerization() -> None:
+    # Regression pair from the official CASMI metric implementation. The
+    # metric deliberately compares connectivity and tautomer identity only.
+    achiral = "C=C(C)C1CCC2CCC(=O)C=C2C1"
+    stereospecified = "C=C(C)[C@@H]1CCC2CCC(=O)C=C2C1"
+    assert canonical_inchikey14(achiral) == canonical_inchikey14(stereospecified)
+
+
 def test_exact_competition_rdkit_version() -> None:
     assert rdkit_version() == "2026.03.3"
