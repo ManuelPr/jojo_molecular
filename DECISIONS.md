@@ -10,4 +10,6 @@ limite operativo di 8 ore, preservando log e artifact prima di cancellare.
 
 ADR-026 seleziona per la prima submission il kernel Goal 4 E6 versione 4 già
 completato. Nessun nuovo commit Kaggle e nessun tuning; l'invio richiede
-approvazione esplicita.
+approvazione esplicita. ADR-027 registra l'esito pubblico 0,000 e stabilisce che
+la prossima evidenza debba riguardare candidate coverage/novelty open-world,
+senza modificare E6 o fare tuning sul leaderboard.

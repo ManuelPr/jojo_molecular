@@ -1,6 +1,8 @@
 # Registro esperimenti
 
-Tutti i risultati qui riportati sono locali o prodotti da kernel Kaggle privati. Nessuna riga rappresenta una submission ufficiale o un punteggio leaderboard.
+Salvo EXP-017, i risultati qui riportati sono locali o prodotti da kernel Kaggle
+privati. EXP-017 registra l'unica submission ufficiale e il relativo punto di
+calibrazione pubblico.
 
 ## EXP-000 — Audit del contratto dati
 
@@ -453,3 +455,36 @@ asset sono verificati. Quota: 0 submission oggi/lifetime, 5 residue.
 
 **Decisione:** versione 4 pronta; fermarsi prima dell'invio. Nessun tuning o
 nuovo commit Kaggle.
+
+## EXP-017 - Prima submission ufficiale E6
+
+**Data:** 2026-10-12
+
+**Kernel:** `mperni/casmi26-goal4-spectral-ranking`, versione 4, `COMPLETE`
+
+**Submission ref:** `57109254`
+
+**Configurazione:** E6 congelato, `analog_score`, peso 0,5, reranking limitato
+alla formula dell'anchor E0. Commit modello
+`04a6a89ae7fc6c32d4a65f6f63450864f5a00abc`; SHA-256 del sorgente Kaggle
+normalizzato `b41302fee0454252617e852b22cec3e48f218fb097da9cde4e304ba50f2b473d`.
+
+L'invio autorizzato è stato eseguito alle `2026-10-12T13:54:59.493Z`. Kaggle ha
+restituito `COMPLETE` con public MRR@25 visualizzato **0,000**. Nello snapshot
+leaderboard delle `14:42:23Z`, il team `MPerni` è 3139 su 3140; il primo score
+è 0,491. Quota residua: 4 submission giornaliere.
+
+Il runtime hidden non è esposto dalla CLI/API. La transizione terminale è stata
+osservata fra 2.769,79 e 2.816,43 secondi dall'invio; questo è turnaround di
+scoring, non runtime del notebook. Il runtime verificato della v4 resta
+2.190,94 secondi.
+
+**Valutazione:** il CSV è stato accettato, ma il risultato pubblico è
+incompatibile con l'uso della MRR locale closed-world come stima end-to-end.
+Poiché E6 riordina soltanto il catalogo train-only, l'ipotesi primaria è un
+fallimento di candidate coverage/novelty. Le truth hidden non permettono di
+distinguere direttamente target assente e target oltre rank 25.
+
+**Decisione:** conservare la submission come unico punto di calibrazione. Non
+modificare E6, non eseguire tuning sul leaderboard e non effettuare una seconda
+submission senza nuova approvazione ed evidenza offline.

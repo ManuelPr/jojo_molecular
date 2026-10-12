@@ -1,20 +1,33 @@
-# Prima submission ufficiale — preflight E6
+# Prima submission ufficiale — E6 v4
 
 Ultimo aggiornamento: 2026-10-12
 
-## Decisione
+## Esito
 
-Il candidato è **READY / AWAITING APPROVAL**. La submission non è stata
-effettuata. Va utilizzato esclusivamente il commit Kaggle già completato:
+La submission autorizzata è stata eseguita una sola volta usando esclusivamente
+il commit Kaggle già completato:
 
 - kernel: `mperni/casmi26-goal4-spectral-ranking`;
 - versione: **4**;
 - modello: Goal 4 **E6**;
 - commit modello: `04a6a89ae7fc6c32d4a65f6f63450864f5a00abc`.
 
-Non creare una nuova versione del kernel prima della prima submission: la v4 è
-il commit che ha già eseguito end-to-end la baseline congelata e ha prodotto gli
-artifact verificati. Nessun parametro, peso o feature è stato modificato.
+La v4 è lo stesso snapshot del preflight. Nessun parametro, peso, feature,
+asset o sorgente è stato modificato e non è stata creata una nuova versione.
+
+| Campo | Valore |
+|---|---|
+| Submission ref | `57109254` |
+| Timestamp invio | `2026-10-12T13:54:59.493Z` |
+| Stato | `COMPLETE` |
+| Public MRR@25 visualizzato | **0,000** |
+| Posizione allo snapshot | **3139 / 3140** |
+| Snapshot leaderboard | `2026-10-12T14:42:23Z` |
+| Miglior score allo snapshot | 0,491 |
+| Quota dopo l'invio | 1 oggi, 1 lifetime, 4 residue |
+
+Il valore è esposto da Kaggle con tre decimali e va registrato come valore
+visualizzato, non come prova che lo score non arrotondato sia esattamente zero.
 
 ## Integrità del codice Kaggle
 
@@ -93,7 +106,7 @@ Il commit usa circa il 6,8% del budget e lascia circa 8 h 23 min di margine.
 Peak RSS: 1.689.780.224 byte; VRAM allocata: 0. Il percorso è CPU-bound pur
 essendo il commit configurato su T4.
 
-## Limiti e quota
+## Limiti e quota al preflight
 
 Preflight CLI del 2026-10-12:
 
@@ -104,20 +117,28 @@ Preflight CLI del 2026-10-12:
 - Internet deve restare disabilitato;
 - il file deve chiamarsi `submission.csv`.
 
-## Gate finale
+## Invio e runtime
 
-Il controllo UI del pulsante `Submit to Competition` non è stato completato
-perché il helper locale di automazione browser non si è inizializzato. Non è un
-errore del kernel: stato `COMPLETE`, metadata e output sono disponibili via API
-Kaggle. Dopo approvazione esplicita, il primo passo sarà aprire la versione 4 e
-verificare visivamente il pulsante; il secondo e ultimo passo sarà inviare
-quella stessa versione, senza salvarne una nuova.
+L'approvazione esplicita è stata ricevuta e l'invio è stato effettuato con la
+CLI ufficiale, specificando kernel `mperni/casmi26-goal4-spectral-ranking`,
+versione 4 e file `submission.csv`. Kaggle ha mantenuto lo stato `PENDING` fino
+alla transizione terminale osservata tra `14:41:09.280Z` e `14:41:55.928Z`.
+Il turnaround osservato è quindi compreso tra 2.769,79 e 2.816,43 secondi.
 
-Subito dopo l'invio vanno registrati:
+Kaggle CLI 2.2.4 e il modello submission dell'API non espongono il runtime del
+rerun hidden. Il campo resta correttamente `N.A.`; non viene sostituito con il
+turnaround. Il runtime verificato del commit v4 resta 2.190,94 secondi.
 
-- timestamp e versione effettivamente inviata;
-- SHA-256 del sorgente;
-- runtime hidden;
-- public MRR@25;
-- posizione pubblica al momento della lettura;
-- eventuale errore o differenza rispetto al rehearsal.
+## Interpretazione del risultato
+
+Il formato è stato accettato e la submission è `COMPLETE`, quindi il preflight
+ha verificato correttamente esecuzione, formato e indipendenza dagli ID del
+placeholder. Tuttavia, E6 può soltanto riordinare strutture presenti nel
+catalogo chiuso costruito dal train. Il public `0,000` è pertanto evidenza forte
+di un problema end-to-end di candidate coverage/novelty sul test nascosto, non
+una misura isolata della qualità del reranker E6.
+
+Questa è un'inferenza, perché le identità hidden non sono disponibili: non si
+può distinguere direttamente fra target assenti dal catalogo e target presenti
+ma tutti oltre la posizione 25. Non viene effettuato tuning sul singolo punto
+leaderboard e non viene tentata una seconda submission.

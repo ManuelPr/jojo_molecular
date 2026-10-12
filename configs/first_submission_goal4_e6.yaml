@@ -1,6 +1,6 @@
 submission_candidate_id: casmi26_goal4_e6_first_official
-status: awaiting_explicit_user_approval
-submission_performed: false
+status: complete_scored
+submission_performed: true
 
 model:
   goal: 4
@@ -60,9 +60,26 @@ resources:
   peak_vram_bytes: 0
 
 post_submission:
-  public_mrr_at_25: null
-  public_rank: null
-  submitted_kernel_version: null
-  submitted_code_sha256: null
+  submission_ref: 57109254
+  description: Goal 4 E6 frozen baseline v4 - first calibration
+  status: COMPLETE
+  public_mrr_at_25_displayed: "0.000"
+  public_score_precision: 3
+  public_rank: 3139
+  leaderboard_team_count: 3140
+  leaderboard_snapshot_utc: 2026-10-12T14:42:23Z
+  leaderboard_leader_score: "0.491"
+  submitted_kernel_version: 4
+  submitted_code_sha256: b41302fee0454252617e852b22cec3e48f218fb097da9cde4e304ba50f2b473d
   hidden_runtime_seconds: null
-  submission_timestamp_utc: null
+  hidden_runtime_note: not_exposed_by_kaggle_cli_or_submission_api
+  verified_v4_runtime_seconds: 2190.942201223
+  scoring_turnaround_lower_bound_seconds: 2769.7869579
+  scoring_turnaround_upper_bound_seconds: 2816.4347989
+  last_pending_observation_utc: 2026-10-12T14:41:09.2799579Z
+  first_complete_observation_utc: 2026-10-12T14:41:55.9277989Z
+  submission_timestamp_utc: 2026-10-12T13:54:59.493000Z
+  submissions_today_after_scoring: 1
+  lifetime_submissions_after_scoring: 1
+  remaining_today_after_scoring: 4
+  tuning_after_submission: false

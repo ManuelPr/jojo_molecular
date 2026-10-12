@@ -262,3 +262,22 @@ same-formula dell'anchor mass.
 La submission rimane bloccata fino ad approvazione esplicita. Dopo l'invio si
 registra un solo punto di calibrazione; il public leaderboard non viene usato
 per modificare E6 o scegliere iperparametri.
+
+## ADR-027 - Public 0,000: coverage prima del ranking
+
+**Data:** 2026-10-12
+
+**Stato:** accettata
+
+La submission E6 v4 autorizzata è `COMPLETE` con public MRR@25 visualizzato
+0,000 e rank 3139/3140 allo snapshot. Il runner e il formato sono stati
+accettati, ma E6 può solo riordinare strutture nel catalogo costruito dal train.
+Il punto pubblico invalida quindi l'uso del benchmark locale closed-world come
+proxy della pipeline hidden end-to-end.
+
+La priorità tecnica successiva, quando il workflow Goal 5 verrà riaperto, è
+dimostrare candidate coverage/novelty su un protocollo realmente open-world
+prima di investire in ulteriore reranking. Non si conclude che il reranker E6
+sia la causa dello zero: le truth hidden non sono disponibili. E6 resta
+congelato, il singolo score non viene usato per tuning e nessuna seconda
+submission viene autorizzata implicitamente.

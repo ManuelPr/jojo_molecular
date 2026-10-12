@@ -9,6 +9,7 @@ anchor E12 esterno alla union pool; il bug è corretto e testato. V4 era ancora
 `RUNNING` dopo 2 h 09 min 00,6 s al checkpoint. Nessun risultato E7–E12 incompleto
 è promosso e nessun nuovo run è stato avviato.
 
-EXP-016 verifica la prima submission E6: kernel Goal 4 v4 `COMPLETE`, sorgente e
-output riscaricati con hash coincidenti, CSV valido, runtime 36 min 31 s,
-Internet off e quota 5/5. Submission non eseguita, in attesa di approvazione.
+EXP-016 verifica il preflight E6. EXP-017 registra l'unica submission ufficiale:
+Goal 4 v4, ref `57109254`, stato `COMPLETE`, public MRR@25 visualizzato 0,000 e
+rank 3139/3140. Nessun tuning o secondo invio; priorità diagnostica alla
+candidate coverage/novelty open-world.

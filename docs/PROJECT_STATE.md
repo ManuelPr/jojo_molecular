@@ -1,6 +1,6 @@
 # Stato progetto CASMI 2026
 
-Ultimo aggiornamento: 2026-10-12, checkpoint 15:31:34 Europe/Rome
+Ultimo aggiornamento: 2026-10-12, calibrazione leaderboard 16:42 Europe/Rome
 
 ## Stato sintetico
 
@@ -12,8 +12,8 @@ strutture. Le metriche E7–E12 Goal 5 non sono ancora disponibili.
 Il run autorevole è il kernel Kaggle privato
 `mperni/casmi26-goal4-spectral-ranking`, versione 4, offline. E6 è promosso
 come nuova baseline: analog propagation sul top-100 nearest-mass, confinata al
-gruppo di formula dell'anchor E0. Nessuna submission ufficiale è stata
-effettuata.
+gruppo di formula dell'anchor E0. La prima submission ufficiale è stata
+completata: public MRR@25 visualizzato 0,000, rank 3139/3140 allo snapshot.
 
 ## Checkpoint Goal 5
 
@@ -60,7 +60,8 @@ cancellazione oltre 4 ore senza artifact terminale; limite operativo 8 ore.
 - Kaggle: smoke test e inferenza offline.
 - VM esterna: canonicalizzazione, preprocessing e benchmark lunghi.
 
-Nessuna VM esterna, GPU a pagamento o submission è stata avviata/autorizzata.
+Nessuna VM esterna o GPU a pagamento è stata avviata. L'unica submission
+autorizzata è E6 v4; nessuna submission Goal 5 è stata effettuata.
 La prossima azione consentita è raccogliere il terminal artifact di v4 o
 proporne l'interruzione secondo la stop-rule; non avviare un run sostitutivo.
 
@@ -88,8 +89,9 @@ valore elevato e instabile.
 - 26/32 query hanno competitor same-formula; 18 errori E0 sono proxy di
   isomeria costituzionale.
 - Reference train identity-OOF e validation identity/content-disjoint.
-- Nell'inferenza nascosta una reference duplicata per contenuto spettrale è
-  stata esclusa automaticamente: 128 reference iniziali, 127 utilizzate.
+- Nel rehearsal sul test placeholder una reference duplicata per contenuto
+  spettrale è stata esclusa automaticamente: 128 reference iniziali, 127
+  utilizzate. Il report del rerun hidden non è esposto.
 
 ## Componenti Goal 4
 
@@ -104,14 +106,19 @@ valore elevato e instabile.
   bootstrap appaiato e resource accounting.
 - `goal4_inference.py`: catalogo target-blind e inferenza E6 offline.
 
-## Inferenza pronta, non inviata
+## Inferenza e calibrazione pubblica
 
-Il CSV Kaggle v4 contiene 400 molecule ID ed esattamente 25 SMILES validi e
-unici per riga. SHA-256:
+Il CSV di rehearsal Kaggle v4 contiene 400 molecule ID ed esattamente 25 SMILES
+validi e unici per riga. SHA-256:
 `52cdeac4ad5e3907d807c16a457fbe327ccfa40cd82205daf6f1642eec2b363f`.
 Benchmark e selezione richiedono 672,53 s; l'inferenza test 1.500,43 s. Peak
-RSS è 1,69 GB e la pipeline non alloca VRAM. Il file resta un artifact locale;
-l'invio richiede approvazione esplicita.
+RSS è 1,69 GB e la pipeline non alloca VRAM.
+
+Dopo approvazione esplicita, la stessa versione 4 è stata inviata come
+submission `57109254` alle `2026-10-12T13:54:59.493Z`. Stato `COMPLETE`, public
+MRR@25 visualizzato 0,000, rank 3139/3140 alle `14:42:23Z`. Il runtime hidden
+non è esposto; il turnaround osservato è 2.769,79–2.816,43 s. Nessun nuovo
+commit Kaggle, tuning o secondo invio.
 
 ## Qualità
 
@@ -119,7 +126,7 @@ l'invio richiede approvazione esplicita.
 - Coverage: 66% su 5.197 statement; moduli Goal 4 centrali 87–93%, ranking 91%.
 - `compileall` e `git diff --check`: passati.
 - E2E Kaggle offline: passato su train/test ufficiali.
-- Nessuna VM a pagamento, grande training o submission.
+- Nessuna VM a pagamento o grande training; una sola submission E6 autorizzata.
 
 ## Decisione successiva
 
@@ -133,15 +140,16 @@ Dettagli: [GOAL4_SPECTRAL_RANKING_REPORT.md](GOAL4_SPECTRAL_RANKING_REPORT.md),
 [CANDIDATE_COVERAGE_REPORT.md](CANDIDATE_COVERAGE_REPORT.md) e
 [LEADERBOARD_CALIBRATION.md](LEADERBOARD_CALIBRATION.md).
 
-## Gate prima submission ufficiale
+## Esito prima submission ufficiale
 
-La baseline Goal 4 E6 è pronta per la prima submission, ma non è stata inviata.
-Il candidato è il kernel `mperni/casmi26-goal4-spectral-ranking`, versione 4,
-già `COMPLETE`. Il sorgente remoto coincide con il bundle congelato; gli output
-e il CSV coincidono con gli hash di Goal 4. Runtime end-to-end 2.190,94 s,
-submission valida da 400 righe, Internet disabilitato, quota 5/5 disponibile.
+La baseline Goal 4 E6 è stata inviata una volta dalla versione Kaggle 4 già
+`COMPLETE`, senza modifiche e senza includere Goal 5. Lo score pubblico
+visualizzato 0,000 mostra che la validation locale closed-world non è
+rappresentativa della pipeline hidden end-to-end.
 
-Non creare un nuovo commit Kaggle e non includere Goal 5. La prossima azione
-richiede approvazione esplicita: verificare visivamente il pulsante della
-versione 4 e inviare quella stessa versione. Dettagli in
-`FIRST_SUBMISSION_PRECHECK.md`.
+L'ipotesi primaria è candidate coverage/novelty: il catalogo E6 è train-only e
+il reranker non può recuperare strutture assenti. È un'inferenza, non una prova
+diretta sulle truth hidden. La priorità successiva, quando Goal 5 riprenderà, è
+validare offline un candidate generator open-world prima di un'altra
+submission. Dettagli in `FIRST_SUBMISSION_PRECHECK.md` e
+`LEADERBOARD_CALIBRATION.md`.
