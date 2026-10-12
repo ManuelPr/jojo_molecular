@@ -13,6 +13,18 @@ artifact terminale con evidenza migliore.
 **Nessuna submission ufficiale è stata effettuata.** Il kernel privato prepara
 un CSV e si ferma. L'invio richiede approvazione esplicita dell'utente.
 
+### Candidato prima submission
+
+Stato al 2026-10-12: **READY / AWAITING APPROVAL**. Il candidato è la versione
+Kaggle 4 del kernel Goal 4, E6 invariato. Il preflight completo è in
+`FIRST_SUBMISSION_PRECHECK.md`; il manifest machine-readable è
+`configs/first_submission_goal4_e6.yaml`.
+
+Non va creato un nuovo commit Kaggle: la versione 4 già completata è lo snapshot
+verificato da sottoporre alla scoring rerun hidden. Quota verificata: 0
+submission oggi, 0 lifetime, 5 residue. I campi public score, posizione e
+runtime hidden restano `N.A.` fino all'approvazione e all'esecuzione effettiva.
+
 La Kaggle CLI 2.2.4 è installata e autenticata via OAuth. Non era disponibile
 un tool Kaggle MCP in questa sessione, quindi le operazioni sono state eseguite
 con la CLI ufficiale. Tutti i kernel sono privati, Internet è disattivato e non

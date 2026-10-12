@@ -246,3 +246,19 @@ terminare, ma non va sostituito da un nuovo run Kaggle. Se supera 4 ore senza
 artifact terminale, proporre la cancellazione; 8 ore è il limite operativo per
 questo benchmark. L'eventuale cancellazione deve preservare log, versione e
 artifact recuperabili.
+
+## ADR-026 - Prima submission dalla versione Goal 4 E6 già completata
+
+**Data:** 2026-10-12
+
+**Stato:** accettata
+
+Usare `mperni/casmi26-goal4-spectral-ranking`, versione 4, come prima
+submission ufficiale. Non creare una nuova versione e non incorporare Goal 5:
+la v4 è `COMPLETE`, offline, associata alla competizione e ha output/hash/runtime
+già verificati. Il modello resta E6 con `analog_score`, peso 0,5 e reranking
+same-formula dell'anchor mass.
+
+La submission rimane bloccata fino ad approvazione esplicita. Dopo l'invio si
+registra un solo punto di calibrazione; il public leaderboard non viene usato
+per modificare E6 o scegliere iperparametri.

@@ -132,3 +132,16 @@ same-formula dimostra la necessità di forward spectral reranking.
 Dettagli: [GOAL4_SPECTRAL_RANKING_REPORT.md](GOAL4_SPECTRAL_RANKING_REPORT.md),
 [CANDIDATE_COVERAGE_REPORT.md](CANDIDATE_COVERAGE_REPORT.md) e
 [LEADERBOARD_CALIBRATION.md](LEADERBOARD_CALIBRATION.md).
+
+## Gate prima submission ufficiale
+
+La baseline Goal 4 E6 è pronta per la prima submission, ma non è stata inviata.
+Il candidato è il kernel `mperni/casmi26-goal4-spectral-ranking`, versione 4,
+già `COMPLETE`. Il sorgente remoto coincide con il bundle congelato; gli output
+e il CSV coincidono con gli hash di Goal 4. Runtime end-to-end 2.190,94 s,
+submission valida da 400 righe, Internet disabilitato, quota 5/5 disponibile.
+
+Non creare un nuovo commit Kaggle e non includere Goal 5. La prossima azione
+richiede approvazione esplicita: verificare visivamente il pulsante della
+versione 4 e inviare quella stessa versione. Dettagli in
+`FIRST_SUBMISSION_PRECHECK.md`.

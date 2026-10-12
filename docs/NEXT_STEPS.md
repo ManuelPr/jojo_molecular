@@ -68,3 +68,17 @@ Riprendere gli esperimenti solo dopo aver definito:
 - logging periodico di runtime/RSS;
 - stop-rule e costo massimo;
 - trasferimento finale degli artifact alla pipeline Kaggle di inferenza.
+
+## Gate separato — prima submission E6
+
+La versione Kaggle Goal 4 v4 è `READY / AWAITING APPROVAL`; non richiede un
+nuovo run. Dopo approvazione:
+
+1. aprire la versione Kaggle 4, senza crearne una nuova;
+2. verificare che il commit mostri `submission.csv` e il pulsante di submission;
+3. inviare una sola volta alla competizione;
+4. registrare public MRR@25, posizione, timestamp, runtime hidden, versione e
+   hash del sorgente;
+5. non modificare E6 in risposta al singolo public score.
+
+Nessuna submission è stata effettuata al checkpoint.

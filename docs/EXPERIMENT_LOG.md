@@ -430,3 +430,26 @@ run è stato avviato per questo checkpoint.
 artifact terminale; non superare 8 ore. Prima di cancellare, conservare stato,
 versione, log e output recuperabili. Al termine, raccogliere una sola volta gli
 artifact senza avviare un sostituto Kaggle.
+
+## EXP-016 - Preflight prima submission ufficiale E6
+
+**Data:** 2026-10-12
+
+**Kernel:** `mperni/casmi26-goal4-spectral-ranking`, versione 4, `COMPLETE`
+
+**Submission:** non eseguita; in attesa di approvazione
+
+Il sorgente è stato riscaricato da Kaggle e coincide con il bundle locale dopo
+normalizzazione dei line ending, SHA-256
+`b41302fee0454252617e852b22cec3e48f218fb097da9cde4e304ba50f2b473d`.
+Gli output remoti coincidono con gli artifact congelati; `submission.csv` ha
+hash `52cdeac4ad5e3907d807c16a457fbe327ccfa40cd82205daf6f1642eec2b363f`.
+
+Il CSV contiene 400 molecule ID unici e 25 candidati validi/unici per riga. Il
+runner usa test e sample submission risolti dinamicamente e non contiene ID o
+cardinalità del placeholder. Runtime end-to-end 2.190,94 s, peak RSS 1,69 GB,
+VRAM 0; limite ufficiale 9 ore. Metadata offline, competition source, T4 e
+asset sono verificati. Quota: 0 submission oggi/lifetime, 5 residue.
+
+**Decisione:** versione 4 pronta; fermarsi prima dell'invio. Nessun tuning o
+nuovo commit Kaggle.

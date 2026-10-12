@@ -13,3 +13,8 @@ verificato `RUNNING` alle 15:31:34 dopo 2 h 09 min 00,6 s. Nessuna submission e
 nessuna VM a pagamento sono state avviate. Il workflow deciso è: locale per
 codice/unit test, Kaggle per smoke e inferenza, VM esterna per elaborazioni
 lunghe.
+
+La prima submission ufficiale E6 è pronta e attende approvazione. Va inviata la
+versione Kaggle Goal 4 v4 già `COMPLETE`, senza nuovo commit o tuning. Preflight:
+CSV valido, runtime 36 min 31 s, Internet off, quota residua 5/5. Dettagli in
+[docs/FIRST_SUBMISSION_PRECHECK.md](docs/FIRST_SUBMISSION_PRECHECK.md).

@@ -1,0 +1,68 @@
+submission_candidate_id: casmi26_goal4_e6_first_official
+status: awaiting_explicit_user_approval
+submission_performed: false
+
+model:
+  goal: 4
+  experiment: E6
+  git_commit: 04a6a89ae7fc6c32d4a65f6f63450864f5a00abc
+  selected_feature: analog_score
+  evidence_weight: 0.5
+  same_formula_policy: mass_top_anchor_formula
+  tuning_after_freeze: false
+
+kaggle:
+  competition: enveda-CASMI26-molecule-id-mass-spectra
+  kernel: mperni/casmi26-goal4-spectral-ranking
+  kernel_version: 4
+  kernel_status: COMPLETE
+  kernel_private: true
+  internet_enabled: false
+  accelerator: NvidiaTeslaT4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:2757e0c7d1e0a9cb43da657b97e223c321a98f5014bdf64f44f2f6b083ad2b2f
+  competition_source_attached: true
+  dataset_source: mperni/casmi26-baseline-assets
+  official_runtime_limit_seconds: 32400
+  submissions_today_at_preflight: 0
+  lifetime_submissions_at_preflight: 0
+  remaining_today_at_preflight: 5
+
+code_hashes:
+  remote_source_raw_sha256: 467ea85105640f235835f9eff1812789135747a5392adae06d17b0e0c6f68875
+  source_normalized_sha256: b41302fee0454252617e852b22cec3e48f218fb097da9cde4e304ba50f2b473d
+  remote_kernel_metadata_sha256: a9246757be74c9484e87364efbfd4b1e042e65c4baacf5e760c23011d2298167
+  kaggle_log_sha256: 77c6fed1e554c1d4bc01cd391c410945bc056fbe306c286eef628de5d9bf165b
+
+frozen_inputs:
+  train_parquet_sha256: 9423f90ec08b941a9646b535bf0606183e86ff0c5a297978f5a70693d41bcd98
+  placeholder_test_parquet_sha256: 2fa29c4aa06e93b48e0cd6619fd2de3f4e956f0019d242141678b7287f2b43e0
+  placeholder_sample_submission_sha256: 34c45718efeb03b9d130c7f1ed5a1a72f92c8818479a49d5feef08b5a9f18e04
+  frozen_identity_file_sha256: 8a1445fbe1f762c464b13364d8f6927baf72d4e7a2d8fa9be39a65ece26364b4
+  rdkit_version: 2026.03.3
+
+verified_output:
+  submission_sha256: 52cdeac4ad5e3907d807c16a457fbe327ccfa40cd82205daf6f1642eec2b363f
+  results_sha256: 9605d8d98ddd0e1a20fe33b1a52c562fc39aa95b0f199ca1b876198fbb04374a
+  inference_report_sha256: 6a9b4957846eff92404a10599bd5b59cd41df692ef8b0ed2a7d06fc7feef6aeb
+  split_manifest_sha256: 992bc71ef6cbcccc3b5ae870b711d2a32ab371dad609a3621bad2a6fd67c612c
+  row_count: 400
+  molecule_count: 400
+  min_candidates: 25
+  max_candidates: 25
+  csv_valid: true
+  test_spectrum_count: 1213
+
+resources:
+  experiment_seconds: 672.532554177
+  inference_seconds: 1500.430988364
+  total_kernel_seconds: 2190.942201223
+  peak_rss_bytes: 1689780224
+  peak_vram_bytes: 0
+
+post_submission:
+  public_mrr_at_25: null
+  public_rank: null
+  submitted_kernel_version: null
+  submitted_code_sha256: null
+  hidden_runtime_seconds: null
+  submission_timestamp_utc: null
