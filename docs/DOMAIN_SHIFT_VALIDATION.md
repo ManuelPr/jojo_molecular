@@ -134,8 +134,16 @@ library contiene 2.932 spettri prima delle mask A/B/C; v2 ne aveva caricati
 
 `a1aa831fe34de659c58c1f3e3aba746525297d6a960b149402f7db9dc9e0e959`.
 
-Le statistiche di shift complete e le metriche E7–E12 non sono ancora
-disponibili. La v3 ha fallito durante la prima valutazione development perché
-l'ordine di anchor E12 conteneva tre candidati non presenti nella union pool.
-La correzione filtra l'anchor sull'unione effettiva ed è coperta da un test di
-regressione; la v4 che la esercita è ancora in corso al checkpoint.
+Le statistiche v4 sono ora disponibili. Domain e test placeholder condividono
+la label strumentale timsTOF (TV instrument 0), ma mostrano shift marcati:
+TV adducto 0,3084, KS neutral mass 0,4158, KS precursor m/z 0,4157, KS peak
+count 0,1768 e KS relative-intensity p10 0,3004. La mediana del neutral mass del
+test è 42,89 Da inferiore al domain proxy e il test ha 20 picchi mediani in
+meno. La provenance source ha TV 1,0 per definizione e non è una feature
+inference-safe.
+
+Questi valori confermano che il cohort è instrument-matched ma non pienamente
+rappresentativo del placeholder. V4 ha prodotto metriche E7–E12 complete e
+superato tutti i controlli leakage; i risultati quantitativi sono in
+`GOAL5_SCALABLE_RETRIEVAL_REPORT.md` e
+`artifacts/goal5_kaggle_v4/goal5/goal5_results.json`.

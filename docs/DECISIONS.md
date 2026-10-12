@@ -1,5 +1,24 @@
 # Decision log
 
+## ADR-028 - Recovery coverage-first con C1 e reference scaling
+
+**Data:** 2026-10-12
+**Stato:** accettata
+
+L'audit domain-matched development misura C0 catalog recall 57,45% contro 100%
+per C1. C1 porta Recall@1000 a 1,0 ma aumenta i competitor same-formula medi da
+1,55 a 14,18 e riduce la mass-only MRR@25 da 0,4069 a 0,3801. La conversione
+degli addotti non mostra un errore sistematico (mediana 1,65 ppm, p90 3,12 ppm).
+
+La recovery procede in ordine: runner fail-fast; C1 con E6 congelato; ladder
+reference 127→512→2.000→2.748; C2 COCONUT; C3 ChEBI/LIPID MAPS. Import e
+benchmark lunghi vanno sulla VM, Kaggle resta per smoke e inferenza. Nessuna
+seconda submission senza rehearsal offline e nuova approvazione.
+
+Goal 5 v4 è terminato prima dell'interruzione, dopo 8 h 21 min 46,64 s di log.
+Gli artifact sono archiviati, ma E8–E12 non sono promossi: i delta MRR C1 vs C0
+non sono stabili e Hit@1 peggiora. Non avviare un sostituto Kaggle.
+
 ## ADR-001 - Tre protocolli, non un singolo holdout
 
 **Data:** 2026-10-09  

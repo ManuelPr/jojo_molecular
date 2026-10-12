@@ -1,5 +1,9 @@
 # Decision log
 
+ADR-028 adotta recovery coverage-first: C1 con E6 congelato, scaling reference
+e soltanto dopo C2/C3 su VM. Il runner candidato deve essere fail-fast. Goal 5
+v4 è terminato `COMPLETE`, ma E8–E12 non sono promossi né rilanciati.
+
 Il registro autorevole è in [docs/DECISIONS.md](docs/DECISIONS.md).
 
 ADR-024 stabilisce locale per codice/test, Kaggle per smoke e inferenza, VM

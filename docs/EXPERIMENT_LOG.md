@@ -1,5 +1,37 @@
 # Registro esperimenti
 
+## EXP-018 - Zero-score forensics e coverage C0/C1
+
+**Data:** 2026-10-12
+
+**Esecuzione:** locale CPU; nessun training, kernel o submission
+
+**Artifact:** `artifacts/zero_score_recovery/forensics.json`
+
+L'audit usa soltanto le 188 identità development domain-matched; il sealed non
+è stato aperto. C0 (49.195 strutture) ottiene catalog recall 0,5745,
+Recall@25/100/1000 0,5691/0,5745/0,5745, mass-only MRR@25 0,4069 e conditional
+MRR 0,7082. C1 (271.439) ottiene catalog recall 1,0,
+Recall@25/100/1000 0,8989/0,9947/1,0 e mass-only MRR/conditional MRR 0,3801.
+
+C1 copre 80 truth aggiuntive ma aumenta i competitor same-formula medi da 1,55
+a 14,18. Sui 876 spettri non vi sono addotti unsupported; errore massa neutra
+mediano 1,65 ppm e p90 3,12 ppm. Il rehearsal contiene 400 query, 25 candidati
+unici ciascuna e 395 ranking distinti: nessun fallback globale osservato.
+
+**Decisione:** coverage C0/selection bias è la causa primaria più probabile;
+prima di C2/C3 misurare C1 con E6 congelato e reference scaling.
+
+**Job preesistente:** Goal 5 v4 è poi terminato `COMPLETE`. Log effettivo
+30.106,64 s (8 h 21 min 46,64 s). Artifact scaricati una volta sotto
+`artifacts/goal5_kaggle_v4/`; nessun relaunch o submission.
+
+E8/C1 vs E7/C0: development A +0,0403 MRR (IC95%
+[-0,0350; 0,0979]), development B −0,0025; sealed A +0,0065, sealed B −0,0187.
+Hit@1 peggiora in tutte le celle, mentre Recall@25/100 e Hit@5/10 aumentano.
+E9/E10/E12 non migliorano la MRR di E8. **Decisione:** non promuovere E8–E12;
+isolare reference scaling e migliorare ranking prima di una seconda submission.
+
 Salvo EXP-017, i risultati qui riportati sono locali o prodotti da kernel Kaggle
 privati. EXP-017 registra l'unica submission ufficiale e il relativo punto di
 calibrazione pubblico.

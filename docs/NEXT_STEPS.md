@@ -1,5 +1,21 @@
 # Next steps — Goal 5 checkpoint
 
+## Sequenza recovery aggiornata
+
+1. Conservare Goal 5 v4 `COMPLETE`, log e artifact già recuperati; non
+   promuovere E8–E12 e non rilanciare il notebook.
+2. Rendere fail-fast la futura pipeline candidata eliminando
+   fallback di esperimento/feature/peso e aggiungendo fingerprint runtime.
+3. Sulla VM, riusare C1 e misurare E6 congelato con la ladder reference
+   127/512/2.000/2.748. Non aprire il sealed fino al congelamento.
+4. Costruire C2 COCONUT e C3 ChEBI/LIPID MAPS solo dopo il risultato C1;
+   misurare separatamente catalog recall, Candidate Recall e ranking.
+5. Fare un unico rehearsal Kaggle di sola inferenza con artifact precomputati.
+6. Fermarsi prima della seconda submission e chiedere nuova approvazione.
+
+Dettagli in [RECOVERY_EXPERIMENT_PLAN.md](RECOVERY_EXPERIMENT_PLAN.md). Goal 6
+resta vietato.
+
 Ultimo aggiornamento: 2026-10-12
 
 ## Stato
@@ -10,29 +26,21 @@ stato riorganizzato.
 
 ## Prossima operazione breve consentita
 
-Controllare una sola volta lo stato del kernel Goal 5 v4 già attivo:
-
-- se è terminale, scaricare log e artifact senza rilanciarlo;
-- se è ancora `RUNNING` oltre 4 ore, proporre l'interruzione;
-- non consentire a questo benchmark di superare 8 ore;
-- prima di cancellare, registrare stato, durata, versione e tutto ciò che Kaggle
-  rende recuperabile.
-
-Non aprire manualmente il sealed stage e non effettuare submission.
+Il kernel Goal 5 v4 è terminale e gli artifact sono già archiviati. Non
+rilanciarlo e non effettuare submission. La prossima modifica breve è rendere
+fail-fast il runner futuro; gli esperimenti lunghi riprendono soltanto dopo la
+predisposizione della VM.
 
 ## Lavoro Goal 5 ancora necessario
 
-1. Ottenere un artifact E7–E12 completo su development e sealed.
-2. Validare E8/E9 candidate-order equality e misurare Recall@25/100/1000 di C1.
-3. Calcolare paired delta, bootstrap, Hit@1/5/10, conditional/oracle MRR,
-   breakdown same-formula e costi di retrieval/ranking.
-4. Completare le diagnostiche domain-shift fra reference train, cohort
-   `enveda-np-examples`/timsTOF e test placeholder.
-5. Eseguire il probe DreaMS frozen soltanto in un ambiente Python 3.11 isolato,
+1. Rendere fail-fast il runner futuro e aggiungere fingerprint di input/output.
+2. Isolare l'effetto reference con ladder 127/512/2.000/2.748 su VM.
+3. Migliorare il reranking C1 mirando a Hit@1 senza modificare E6 tramite LB.
+4. Eseguire il probe DreaMS frozen soltanto in un ambiente Python 3.11 isolato,
    dopo aver preparato wheelhouse e checkpoint con hash.
-6. Valutare C2 (prima LIPID MAPS o COCONUT) solo dopo aver misurato C1; nessun
+5. Valutare C2 (COCONUT) e poi C3 (ChEBI/LIPID MAPS); nessun
    database esterno è stato ancora importato.
-7. Preparare un rehearsal Kaggle di sola inferenza e, solo dopo risultati
+6. Preparare un rehearsal Kaggle di sola inferenza e, solo dopo risultati
    completi, formulare la decisione sul Goal successivo.
 
 ## Workflow da predisporre prima di riprendere

@@ -1,6 +1,36 @@
 # Goal 5 — Scalable analog retrieval and domain adaptation
 
-## Checkpoint operativo — 2026-10-12
+## Esito terminale v4 — 2026-10-12
+
+Il kernel `mperni/casmi26-goal5-scalable-retrieval` v4 è `COMPLETE`. Il log
+copre 30.106,64 s (8 h 21 min 46,64 s), quindi il run ha superato il budget
+operativo di 8 ore e non va ripetuto su Kaggle. Artifact e log sono archiviati
+in `artifacts/goal5_kaggle_v4/`; nessuna submission è stata effettuata.
+
+`goal5_results.json` SHA-256:
+`4daa02b1fd9d5b40b30075544f3ed4a809e674c712ec7e190b86bd10d3c65e47`.
+L'indice C1 da 271.439 strutture supera la verifica completa dei checksum e
+l'audit leakage A/B/C è passato senza issue.
+
+| Stage/condizione | E7 C0 | E8 C1 | Delta MRR | IC95% | Hit@1 E7→E8 |
+|---|---:|---:|---:|---:|---:|
+| Development A | 0,4179 | 0,4581 | +0,0403 | [-0,0350; 0,0979] | 0,3457→0,3032 |
+| Development B | 0,4107 | 0,4082 | -0,0025 | [-0,0804; 0,0595] | 0,3404→0,2500 |
+| Sealed A | 0,5005 | 0,5069 | +0,0065 | [-0,1517; 0,1595] | 0,4565→0,3696 |
+| Sealed B | 0,4890 | 0,4703 | -0,0187 | [-0,1727; 0,1290] | 0,4348→0,3261 |
+
+Sul development C1 porta Recall@25/100/1000 a
+0,8989/0,9947/1,0000 contro 0,5691/0,5745/0,5745 di C0. Tuttavia Hit@1
+peggiora in tutte le celle A/B e nessun delta MRR è stabile. E9 ed E10 replicano
+la MRR di E8; E12 aumenta la coverage del pool senza aumentare la MRR. In C la
+truth è assente per protocollo e tutte le metriche sono zero.
+
+**Decisione:** E8–E12 non sono promossi. Goal 5 resta un checkpoint scientifico
+conclusivo per C1, ma non autorizza Goal 6 né una nuova submission. Il prossimo
+esperimento utile è una ladder reference controllata su VM, seguita da C2/C3
+solo con misure separate di coverage e ranking.
+
+## Checkpoint storico prima del completamento — 2026-10-12
 
 **Stato: IN CORSO.** Il codice, i contratti di leakage e l'indice C1 sono
 implementati, ma non esistono ancora metriche scientifiche complete E7–E12 sul
@@ -206,10 +236,10 @@ order.
 
 Il commitment del sealed holdout è
 `a1aa831fe34de659c58c1f3e3aba746525297d6a960b149402f7db9dc9e0e959`.
-Non sono disponibili MRR, Recall, paired delta o ablation E7–E12 validi: v2 è
-terminata al limite di circa 12 ore durante la canonicalizzazione; v3 è arrivata
-alla valutazione development ma ha fallito prima di produrre risultati
-completi; v4 è ancora attiva.
+Le metriche terminali v4 sono riportate nell'addendum iniziale. In sintesi C1
+porta Recall@25/100/1000 development a 0,8989/0,9947/1,0, ma E8−E7 non è
+stabile fra A/B e sealed e Hit@1 peggiora. V2 e v3 restano run non terminali
+scientificamente; v4 è l'unico artifact completo.
 
 ## Nuovo confine di esecuzione
 
@@ -219,6 +249,5 @@ completi; v4 è ancora attiva.
 - VM esterna: canonicalizzazione completa, costruzione artifact, benchmark
   E7–E12 e probe isolati lunghi. Nessuna VM viene avviata senza approvazione.
 
-La prossima operazione sicura è soltanto raccogliere l'output di v4 quando
-diventa terminale, oppure proporne la cancellazione secondo la stop-rule. Non
-va aperto il sealed stage manualmente e non va avviato un sostituto Kaggle.
+L'output v4 è stato raccolto e verificato. Non va avviato un sostituto Kaggle;
+la prossima valutazione lunga deve usare VM e checkpoint. Goal 6 resta sospeso.

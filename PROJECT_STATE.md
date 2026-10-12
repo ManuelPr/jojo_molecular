@@ -1,17 +1,25 @@
 # Project state
 
+Recovery audit completato: sul proxy domain-matched development C0 copre
+108/188 truth (57,45%), C1 188/188. C1 raggiunge Recall@25/100/1000
+89,89/99,47/100%, ma mass-only MRR@25 0,3801 per l'aumento dei distractor. Non
+emerge un errore sistematico massa/addotto. La causa più probabile del public
+0,000 è coverage/selection bias closed-world. Goal 5 v4 è `COMPLETE` dopo
+8 h 21 min 46,64 s; artifact recuperati, E8–E12 non promossi. Vedi
+[docs/ZERO_SCORE_ROOT_CAUSE.md](docs/ZERO_SCORE_ROOT_CAUSE.md).
+
 Lo stato operativo autorevole è in
 [docs/PROJECT_STATE.md](docs/PROJECT_STATE.md).
 
-Al checkpoint del 2026-10-12 i Goal 1–4 sono completi; Goal 5 è **in corso** e
-Goal 6 non è iniziato. Sono pronti codice e test per C1, retrieval scalabile,
-protocollo domain-matched A/B/C e DreaMS frozen adapter. C1 contiene 271.439
-strutture canoniche; le metriche E7–E12 complete non sono ancora disponibili.
+I Goal 1–4 sono completi; Goal 5 ha ora un artifact terminale E7–E12 ma nessun
+modello promosso, e Goal 6 non è iniziato. C1 contiene 271.439 strutture
+canoniche. Le metriche complete confermano più coverage ma non un miglioramento
+stabile di MRR/Hit@1.
 
-L'unico job attivo è Goal 5 Kaggle v4, avviato alle 13:22:34 Europe/Rome e
-verificato `RUNNING` alle 15:31:34 dopo 2 h 09 min 00,6 s. Nessuna VM a
-pagamento è stata avviata. Il workflow deciso è: locale per codice/unit test,
-Kaggle per smoke e inferenza, VM esterna per elaborazioni lunghe.
+Goal 5 Kaggle v4 è `COMPLETE`; log effettivo 8 h 21 min 46,64 s, artifact
+recuperati una volta e nessun relaunch. Nessuna VM a pagamento è stata avviata.
+Il workflow resta: locale per codice/unit test, Kaggle per smoke e inferenza,
+VM esterna per elaborazioni lunghe.
 
 La prima submission ufficiale E6 v4 è `COMPLETE`: ref `57109254`, public
 MRR@25 visualizzato 0,000, rank 3139/3140 allo snapshot. Non è stato creato un

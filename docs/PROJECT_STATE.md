@@ -1,13 +1,37 @@
 # Stato progetto CASMI 2026
 
+## Recovery checkpoint — 2026-10-12
+
+Audit locale completato senza training, job Kaggle o apertura del sealed
+holdout. Sul proxy domain-matched development (188 identità, 876 spettri), C0
+copre 108 truth (57,45%) e C1 188 (100%). C1 raggiunge Candidate
+Recall@25/100/1000 89,89/99,47/100%, ma la mass-only MRR@25 è 0,3801 contro
+0,4069 di C0 perché i competitor same-formula medi crescono da 1,55 a 14,18.
+
+Tutti gli addotti osservati sono supportati; errore massa neutra mediano 1,65
+ppm e p90 3,12 ppm. La causa primaria più probabile del public 0,000 è candidate
+coverage/selection bias closed-world, con domain shift e sole 127 reference
+spettrali come co-cause. C2/C3 non sono stati costruiti.
+
+Goal 5 v4 è terminato `COMPLETE`. Artifact e log sono stati scaricati una sola
+volta; durata effettiva dal log 8 h 21 min 46,64 s, oltre il budget di 8 ore.
+E8/C1 migliora coverage e Hit@5/10 ma non Hit@1; i delta MRR vs E7 non sono
+stabili fra A/B e sealed. Non viene promosso. Goal 6 resta non iniziato e
+nessuna seconda submission è autorizzata.
+
+Report: [ZERO_SCORE_ROOT_CAUSE.md](ZERO_SCORE_ROOT_CAUSE.md),
+[EXTERNAL_COVERAGE_ANALYSIS.md](EXTERNAL_COVERAGE_ANALYSIS.md) e
+[RECOVERY_EXPERIMENT_PLAN.md](RECOVERY_EXPERIMENT_PLAN.md).
+
 Ultimo aggiornamento: 2026-10-12, calibrazione leaderboard 16:42 Europe/Rome
 
 ## Stato sintetico
 
-I Goal 1–4 sono completati. **Goal 5 è in corso e congelato a un checkpoint
-sicuro; Goal 6 non è iniziato.** Il riferimento end-to-end promosso resta il
+I Goal 1–4 sono completati. **Goal 5 dispone ora di un artifact terminale ma
+nessun E8–E12 è promosso; Goal 6 non è iniziato.** Il riferimento end-to-end promosso resta il
 realistic benchmark Goal 4 E6, target-blind, con catalogo canonico di 49.195
-strutture. Le metriche E7–E12 Goal 5 non sono ancora disponibili.
+strutture. Le metriche E7–E12 sono disponibili e mostrano più coverage, ma non
+un delta MRR/Hit@1 stabile.
 
 Il run autorevole è il kernel Kaggle privato
 `mperni/casmi26-goal4-spectral-ranking`, versione 4, offline. E6 è promosso
@@ -28,31 +52,30 @@ Completati:
   1.097 spettri query e 2.932 reference capped;
 - adapter DreaMS frozen e decisione `NOT RUN / environment-blocked`;
 - bundle Kaggle privato offline senza chiamate di submission;
+- metriche E7–E12 development/sealed, paired bootstrap, candidate recall e
+  diagnostiche domain-shift recuperate dal job v4 terminale;
 - suite locale: 204 passed, 7 skipped; `compileall` e `git diff --check`
   verificati prima del checkpoint.
 
 Non completati:
 
-- metriche E7–E12 development/sealed, paired bootstrap e ablation complete;
-- candidate Recall@25/100/1000 misurata su C1;
-- statistiche domain-shift finali dal result artifact;
 - DreaMS scientific probe nell'ambiente Python 3.11 isolato;
 - cataloghi esterni C2/C3, non scaricati né importati;
-- rehearsal Goal 5 completo e decisione modellistica successiva.
+- ladder controllata per isolare l'effetto del numero di reference;
+- nuova pipeline candidata con ranking capace di recuperare Hit@1.
 
 ### Job Kaggle
 
-L'unico job attivo è `mperni/casmi26-goal5-scalable-retrieval` v4. Avvio:
-2026-10-12 11:22:34 UTC / 13:22:34 Europe/Rome. Stato alle 15:31:34 locali:
-`RUNNING`, wall time 2 h 09 min 00,6 s. Non è stato avviato alcun nuovo job dopo
-la richiesta di checkpoint. Gli altri kernel CASMI noti risultano `COMPLETE`.
+`mperni/casmi26-goal5-scalable-retrieval` v4 è terminato `COMPLETE`. Il log
+effettivo copre 30.106,64 s (8 h 21 min 46,64 s). Artifact e log sono stati
+scaricati una sola volta sotto `artifacts/goal5_kaggle_v4/`; nessun nuovo job o
+submission è stato avviato.
 
 La v2 ha raggiunto il limite dopo circa 43.084 s conservando indice e piani di
 dominio. La v3 è terminata in errore dopo 10.254,6 s (2 h 50 min 54,6 s) per
 un anchor E12 esterno alla union pool; il bug è corretto e coperto da test. La
-v4 non è ancora classificabile come bloccata, perché al checkpoint non aveva
-raggiunto quel runtime e Kaggle non espone log intermedi. Stop-rule: proporre
-cancellazione oltre 4 ore senza artifact terminale; limite operativo 8 ore.
+v4 ha completato E7–E12 ma ha superato il limite operativo di 8 ore: non va
+rilanciata su Kaggle.
 
 ### Workflow deciso
 
@@ -62,8 +85,8 @@ cancellazione oltre 4 ore senza artifact terminale; limite operativo 8 ore.
 
 Nessuna VM esterna o GPU a pagamento è stata avviata. L'unica submission
 autorizzata è E6 v4; nessuna submission Goal 5 è stata effettuata.
-La prossima azione consentita è raccogliere il terminal artifact di v4 o
-proporne l'interruzione secondo la stop-rule; non avviare un run sostitutivo.
+La prossima azione è archiviare v4 e spostare la ladder reference/C2-C3 sulla
+VM; non avviare un run Kaggle sostitutivo.
 
 ## Evidenza Goal 4
 
