@@ -1,8 +1,9 @@
 # Decision log
 
-Il registro autorevole delle decisioni è mantenuto in
-[docs/DECISIONS.md](docs/DECISIONS.md).
+Il registro autorevole è in [docs/DECISIONS.md](docs/DECISIONS.md).
 
-Decisione Goal 4: E6 analog propagation same-formula è la baseline promossa;
-E0 resta il controllo. E5 non è promosso dal solo final holdout. Goal 5 segue
-Scenario C con retrieval analogico scalabile e DreaMS frozen probe.
+ADR-024 stabilisce locale per codice/test, Kaggle per smoke e inferenza, VM
+esterna per elaborazioni lunghe. ADR-025 congela Goal 5 come incompleto: nessun
+Goal 6, nessun nuovo run Kaggle, nessuna promozione E7–E12 senza artifact
+terminale. Il job v4 già attivo segue una stop-rule di proposta a 4 ore e un
+limite operativo di 8 ore, preservando log e artifact prima di cancellare.

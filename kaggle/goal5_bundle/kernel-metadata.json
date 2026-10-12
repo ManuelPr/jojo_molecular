@@ -1,0 +1,18 @@
+{
+  "id": "mperni/casmi26-goal5-scalable-retrieval",
+  "title": "CASMI26 Goal5 Scalable Retrieval",
+  "code_file": "goal5_kernel.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": false,
+  "dataset_sources": [
+    "mperni/casmi26-baseline-assets"
+  ],
+  "competition_sources": [
+    "enveda-CASMI26-molecule-id-mass-spectra"
+  ],
+  "kernel_sources": [],
+  "model_sources": []
+}

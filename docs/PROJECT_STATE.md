@@ -1,20 +1,68 @@
 # Stato progetto CASMI 2026
 
-Ultimo aggiornamento: 2026-10-10
+Ultimo aggiornamento: 2026-10-12, checkpoint 15:31:34 Europe/Rome
 
 ## Stato sintetico
 
-I Goal 1–4 sono completati. Il riferimento end-to-end è il realistic benchmark
-target-blind con catalogo canonico di 49.195 strutture. Goal 4 aggiunge spectral
-evidence, neutral-loss matching, analog propagation, aggregazione
-multi-spettro, audit di coverage e reranking E0–E7 senza grandi training
-neurali.
+I Goal 1–4 sono completati. **Goal 5 è in corso e congelato a un checkpoint
+sicuro; Goal 6 non è iniziato.** Il riferimento end-to-end promosso resta il
+realistic benchmark Goal 4 E6, target-blind, con catalogo canonico di 49.195
+strutture. Le metriche E7–E12 Goal 5 non sono ancora disponibili.
 
 Il run autorevole è il kernel Kaggle privato
 `mperni/casmi26-goal4-spectral-ranking`, versione 4, offline. E6 è promosso
 come nuova baseline: analog propagation sul top-100 nearest-mass, confinata al
 gruppo di formula dell'anchor E0. Nessuna submission ufficiale è stata
 effettuata.
+
+## Checkpoint Goal 5
+
+Completati:
+
+- baseline E6 congelata e verificata tramite hash e signature;
+- C1 full-train costruito: 271.439 strutture canoniche, 50.662 formule, indice
+  checksummed/mmap da 34.821.876 byte;
+- retrieval mass/formula esatto, pool dinamici, analog prefilter scalabile,
+  staged reranking e union/RRF E12;
+- protocollo domain-matched A/B/C con 234 identità, 188 development, 46 sealed,
+  1.097 spettri query e 2.932 reference capped;
+- adapter DreaMS frozen e decisione `NOT RUN / environment-blocked`;
+- bundle Kaggle privato offline senza chiamate di submission;
+- suite locale: 204 passed, 7 skipped; `compileall` e `git diff --check`
+  verificati prima del checkpoint.
+
+Non completati:
+
+- metriche E7–E12 development/sealed, paired bootstrap e ablation complete;
+- candidate Recall@25/100/1000 misurata su C1;
+- statistiche domain-shift finali dal result artifact;
+- DreaMS scientific probe nell'ambiente Python 3.11 isolato;
+- cataloghi esterni C2/C3, non scaricati né importati;
+- rehearsal Goal 5 completo e decisione modellistica successiva.
+
+### Job Kaggle
+
+L'unico job attivo è `mperni/casmi26-goal5-scalable-retrieval` v4. Avvio:
+2026-10-12 11:22:34 UTC / 13:22:34 Europe/Rome. Stato alle 15:31:34 locali:
+`RUNNING`, wall time 2 h 09 min 00,6 s. Non è stato avviato alcun nuovo job dopo
+la richiesta di checkpoint. Gli altri kernel CASMI noti risultano `COMPLETE`.
+
+La v2 ha raggiunto il limite dopo circa 43.084 s conservando indice e piani di
+dominio. La v3 è terminata in errore dopo 10.254,6 s (2 h 50 min 54,6 s) per
+un anchor E12 esterno alla union pool; il bug è corretto e coperto da test. La
+v4 non è ancora classificabile come bloccata, perché al checkpoint non aveva
+raggiunto quel runtime e Kaggle non espone log intermedi. Stop-rule: proporre
+cancellazione oltre 4 ore senza artifact terminale; limite operativo 8 ore.
+
+### Workflow deciso
+
+- Locale: scrittura codice e unit test brevi.
+- Kaggle: smoke test e inferenza offline.
+- VM esterna: canonicalizzazione, preprocessing e benchmark lunghi.
+
+Nessuna VM esterna, GPU a pagamento o submission è stata avviata/autorizzata.
+La prossima azione consentita è raccogliere il terminal artifact di v4 o
+proporne l'interruzione secondo la stop-rule; non avviare un run sostitutivo.
 
 ## Evidenza Goal 4
 

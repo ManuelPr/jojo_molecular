@@ -1,0 +1,25 @@
+profile: experiment
+seed: 2027
+query_source: enveda-np-examples
+required_instrument: timsTOF
+sealed_fraction: 0.2
+background_reference_identities: 2000
+spectra_per_background_identity: 1
+reference_spectra_per_domain_identity: 4
+catalogs:
+  C0: frozen_goal4_49195
+  C1: all_canonical_unique_training_structures
+fixed_pool_size: 100
+dynamic_pool_size: 1000
+cheap_stage_size: 300
+expensive_stage_size: 100
+analog_top_k: 5
+analog_mass_window_da: 200.0
+peak_tolerance_da: 0.02
+fingerprint_bits: 512
+e6_feature: analog_score
+e6_evidence_weight: 0.5
+bootstrap_samples: 500
+internet: false
+gpu_required: false
+official_submission: false

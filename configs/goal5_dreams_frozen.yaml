@@ -1,0 +1,44 @@
+profile: goal5_dreams_frozen_probe
+mode: frozen_encoder_only
+training_allowed: false
+upstream:
+  repository: https://github.com/pluskal-lab/DreaMS
+  commit: dbec3a0b514a99e5056cfccde4559fda8cfe8129
+  license: MIT
+checkpoint:
+  record: https://zenodo.org/records/10997887
+  filename: embedding_model.ckpt
+  size_bytes: 1241290418
+  md5: 4f6913c242b219b75e667dd1ed5add59
+  embedding_dimension: 1024
+runtime:
+  isolated_python: "3.11"
+  batch_size: 32
+  gpu: T4_16GB
+  internet: false
+  project_environment_import: false
+retrieval:
+  metric: cosine
+  top_k: 80
+  query_batch_size: 32
+  reference_block_size: 8192
+  aggregate_by_structure: max
+evaluation:
+  compare_against: E6
+  candidate_pool_must_match: true
+  conditions:
+    - A_library_visible
+    - B_structure_known_spectra_hidden
+  primary_metric: mrr_at_25
+  secondary_metrics:
+    - hit_at_1
+    - candidate_recall_at_25
+    - runtime_seconds
+    - peak_ram_bytes
+    - peak_vram_bytes
+guardrails:
+  no_checkpoint_download_at_inference: true
+  require_checkpoint_hash: true
+  exclude_query_identity_from_identity_disjoint_search: true
+  exclude_query_spectrum_content: true
+  no_sealed_holdout_tuning: true

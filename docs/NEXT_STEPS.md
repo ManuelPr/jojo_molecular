@@ -1,69 +1,70 @@
-# Next steps — Goal 5
+# Next steps — Goal 5 checkpoint
 
-Ultimo aggiornamento: 2026-10-10
+Ultimo aggiornamento: 2026-10-12
 
-## Decisione
+## Stato
 
-Goal 4 seleziona principalmente lo Scenario C: E6 analog propagation migliora
-E0 sul development e su all-validation, mentre neutral loss, fragment-only e
-LambdaRank non forniscono un vantaggio ripetibile. Il collo di bottiglia
-immediato è la qualità e la scala del retrieval analogico, con un problema
-secondario di coverage esterna non ancora misurata.
+Goal 5 è incompleto ma salvato in un checkpoint riproducibile. Goal 6 non deve
+iniziare. Non avviare nuovi esperimenti o kernel Kaggle finché il workflow non è
+stato riorganizzato.
 
-## Priorità 1 — Libreria spettrale e retrieval analogico
+## Prossima operazione breve consentita
 
-1. Costruire un indice leakage-safe su un numero crescente di identità train,
-   conservando identity e content-hash exclusion.
-2. Misurare learning curve a 128, 512, 2.048 e tutte le reference ammissibili.
-3. Confrontare exact precursor, shifted precursor, modified cosine, entropy e
-   neutral-loss retrieval con gli stessi preprocessing e pool.
-4. Calibrare confidence e gate soltanto sul development; mantenere final
-   congelato.
-5. Ridurre il costo attuale di circa 3,75 s/molecola con prefiltri di massa,
-   sparse peak index o ANN, senza cambiare i candidati valutati nell'ablation.
+Controllare una sola volta lo stato del kernel Goal 5 v4 già attivo:
 
-Go: delta paired positivo contro E0 su almeno due split/semi o un intervallo
-all-validation positivo, senza regressione materialmente maggiore sul final.
+- se è terminale, scaricare log e artifact senza rilanciarlo;
+- se è ancora `RUNNING` oltre 4 ore, proporre l'interruzione;
+- non consentire a questo benchmark di superare 8 ore;
+- prima di cancellare, registrare stato, durata, versione e tutto ciò che Kaggle
+  rende recuperabile.
 
-## Priorità 2 — DreaMS come probe congelato
+Non aprire manualmente il sealed stage e non effettuare submission.
 
-Usare DreaMS pretrained soltanto per embedding e retrieval, senza fine-tuning
-grande. Confrontarlo con E6 a reference library, candidate pool e protocolli
-identici. Promuoverlo solo se migliora MRR/Hit@1 e/o riduce il costo a parità di
-quality. Nessun Transformer da addestrare da zero.
+## Lavoro Goal 5 ancora necessario
 
-## Priorità 3 — Coverage Tier 1
+1. Ottenere un artifact E7–E12 completo su development e sealed.
+2. Validare E8/E9 candidate-order equality e misurare Recall@25/100/1000 di C1.
+3. Calcolare paired delta, bootstrap, Hit@1/5/10, conditional/oracle MRR,
+   breakdown same-formula e costi di retrieval/ranking.
+4. Completare le diagnostiche domain-shift fra reference train, cohort
+   `enveda-np-examples`/timsTOF e test placeholder.
+5. Eseguire il probe DreaMS frozen soltanto in un ambiente Python 3.11 isolato,
+   dopo aver preparato wheelhouse e checkpoint con hash.
+6. Valutare C2 (prima LIPID MAPS o COCONUT) solo dopo aver misurato C1; nessun
+   database esterno è stato ancora importato.
+7. Preparare un rehearsal Kaggle di sola inferenza e, solo dopo risultati
+   completi, formulare la decisione sul Goal successivo.
 
-Canonicalizzare e misurare, in ordine, LIPID MAPS, ChEBI e COCONUT. Per ogni
-tier registrare overlap, catalog recall, Recall@25/100/1000, densità ppm,
-competitor same-formula, MRR con E6 congelato, spazio, RAM e latenza. PubChem
-full resta escluso finché non esistono regola di prefiltraggio generale e
-review dei termini.
+## Workflow da predisporre prima di riprendere
 
-## Priorità 4 — Residuo same-formula
+### Locale
 
-E6 lascia ancora 9/16 errori final same-formula. Dopo avere stabilizzato
-retrieval e coverage, eseguire un piccolo probe ICEBERG/GLACIER pretrained per
-forward spectral reranking. Non avviare training completo finché il probe non
-dimostra un delta candidato-specifico rispetto a E6.
+Codice, unit test, compile check e validazione degli artifact su subset piccoli.
+Nessun preprocessing completo.
 
-## Ramo novelty
+### Kaggle
 
-Novelty generation rimane separata dal closed-world ranking. Va valutata con
-validità chimica, mass/formula consistency, novelty, diversity e coverage su un
-holdout che esclude fisicamente i target dal catalogo; non può essere giustificata
-dalla MRR closed-world.
+Solo smoke bounded e inferenza offline. Target operativo: smoke entro 15–30
+minuti; l'inferenza Goal 4 osservata richiede circa 25 minuti, circa 36,5 minuti
+incluso il benchmark di selezione. Evitare rebuild e benchmark multi-ora.
 
-## Calibrazione leaderboard
+### VM esterna
 
-Il CSV v4 è pronto ma non inviato. Dopo eventuale approvazione, effettuare una
-sola submission di calibrazione e registrare kernel/dataset version, hash CSV,
-score locale, public score e runtime. Non riutilizzare il leaderboard per
-tuning iterativo.
+Per un run Goal 5 completo usare inizialmente CPU, non GPU: 16–32 vCPU, 32–64
+GB RAM e almeno 20 GB di disco di lavoro, con cache/artifact persistenti. Stima
+di budget: 4–8 ore se C1 e feature riutilizzabili sono già presenti; 8–12 ore
+se è necessario ricostruire la canonicalizzazione completa. Sono budget di
+planning, da verificare con uno smoke e checkpoint intermedi, non promesse.
 
-## Ambiente e budget
+Nessuna VM a pagamento può essere avviata senza approvazione esplicita.
 
-- Locale: codice e unit test soltanto.
-- Kaggle T4: smoke ed esperimenti bounded offline.
-- VM grande: configurazione futura, nessun avvio senza un go sperimentale.
-- Vietati submission automatiche, VM a pagamento e training neurali grandi.
+## Criterio di ripresa
+
+Riprendere gli esperimenti solo dopo aver definito:
+
+- immagine/lockfile della VM;
+- upload e checksum di C1 e dei manifest di split;
+- checkpoint per stage e resume;
+- logging periodico di runtime/RSS;
+- stop-rule e costo massimo;
+- trasferimento finale degli artifact alla pipeline Kaggle di inferenza.

@@ -2,6 +2,12 @@
 
 Ultimo aggiornamento: 2026-10-10
 
+Checkpoint Goal 5 (2026-10-12): nessuna submission è stata aggiunta. Il kernel
+Goal 5 v4 è un benchmark privato offline e non contiene chiamate di submission;
+era ancora `RUNNING` dopo 2 h 09 min 00,6 s al checkpoint. La baseline candidata
+alla prima calibrazione ufficiale resta Goal 4 E6 finché Goal 5 non produce un
+artifact terminale con evidenza migliore.
+
 ## Stato
 
 **Nessuna submission ufficiale è stata effettuata.** Il kernel privato prepara

@@ -1,0 +1,67 @@
+baseline_id: goal4_e6_kaggle_v4
+frozen_at: 2026-10-10
+git_commit: 04a6a89ae7fc6c32d4a65f6f63450864f5a00abc
+kaggle_kernel: mperni/casmi26-goal4-spectral-ranking
+kaggle_kernel_version: 4
+submission_performed: false
+
+data:
+  train_parquet_sha256: 9423f90ec08b941a9646b535bf0606183e86ff0c5a297978f5a70693d41bcd98
+  test_parquet_sha256: 2fa29c4aa06e93b48e0cd6619fd2de3f4e956f0019d242141678b7287f2b43e0
+  sample_submission_sha256: 34c45718efeb03b9d130c7f1ed5a1a72f92c8818479a49d5feef08b5a9f18e04
+  split_manifest_sha256: 992bc71ef6cbcccc3b5ae870b711d2a32ab371dad609a3621bad2a6fd67c612c
+  split_manifest_contract_hash: 138055fca36fb37bd29bf27e970a6f8ee853bdd955546a17cb815cf49f1390d0
+
+artifacts:
+  results_path: artifacts/goal4_kaggle_v4/goal4/goal4_results.json
+  results_sha256: 9605d8d98ddd0e1a20fe33b1a52c562fc39aa95b0f199ca1b876198fbb04374a
+  inference_report_path: artifacts/goal4_kaggle_v4/goal4_inference/goal4_selected_inference_report.json
+  inference_report_sha256: 6a9b4957846eff92404a10599bd5b59cd41df692ef8b0ed2a7d06fc7feef6aeb
+  submission_path: artifacts/goal4_kaggle_v4/submission.csv
+  submission_sha256: 52cdeac4ad5e3907d807c16a457fbe327ccfa40cd82205daf6f1642eec2b363f
+
+configuration:
+  seed: 2026
+  max_scan_rows: 300000
+  spectra_per_identity: 3
+  source_catalog_size: 49620
+  canonical_catalog_size: 49195
+  candidate_pool_size: 100
+  analog_top_k: 5
+  analog_mass_window_da: 200.0
+  peak_tolerance_da: 0.02
+  max_peaks: 256
+  intensity_floor: 0.001
+  selected_experiment: E6
+  selected_feature: analog_score
+  evidence_weight: 0.5
+  same_formula_policy: mass_top_anchor_formula
+
+metrics:
+  all_validation:
+    query_count: 32
+    e0_mrr_at_25: 0.37521735843546905
+    e6_mrr_at_25: 0.4020109048013838
+    paired_delta_mrr_at_25: 0.02679354636591479
+    paired_ci95: [0.0031211670274170285, 0.06198998917748915]
+    candidate_recall_at_25: 0.875
+    candidate_recall_at_100: 1.0
+    candidate_recall_at_1000: 1.0
+  model_selection:
+    query_count: 16
+    e0_mrr_at_25: 0.34910395976572445
+    e6_mrr_at_25: 0.36547300738477206
+    paired_delta_mrr_at_25: 0.016369047619047616
+    paired_ci95: [0.0019381313131313122, 0.03393894300144299]
+  final_holdout:
+    query_count: 16
+    e0_mrr_at_25: 0.4013307571052136
+    e6_mrr_at_25: 0.4385488022179955
+    paired_delta_mrr_at_25: 0.037218045112781956
+    paired_ci95: [-0.0017700501253132828, 0.10316592261904753]
+
+replication_evidence:
+  canonical_run_v3_results_sha256_available: true
+  canonical_run_v4_completed: true
+  exact_split_and_selection_metrics_reproduced_between_v3_and_v4: true
+  note: v3 stopped only during hidden-test inference on a duplicate-content leakage guard; validation completed before the stop.

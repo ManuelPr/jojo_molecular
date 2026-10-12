@@ -6,6 +6,7 @@ __pycache__/
 htmlcov/
 .mypy_cache/
 .ruff_cache/
+.tmp_shiferaxa_c75b3fe0/
 
 # Competition data and generated artifacts
 data/*.parquet

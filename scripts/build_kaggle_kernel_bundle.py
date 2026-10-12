@@ -12,15 +12,24 @@ def main() -> int:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--id", required=True)
     parser.add_argument("--title", required=True)
+    parser.add_argument("--code-file-name")
     parser.add_argument("--dataset-source", action="append", default=[])
     parser.add_argument("--competition-source", action="append", default=[])
+    parser.add_argument("--extra-file", type=Path, action="append", default=[])
     parser.add_argument("--gpu", action="store_true")
     args = parser.parse_args()
     if not args.entrypoint.is_file():
         raise SystemExit(f"Entrypoint not found: {args.entrypoint}")
     args.output.mkdir(parents=True, exist_ok=True)
-    target = args.output / args.entrypoint.name
+    target = args.output / (args.code_file_name or args.entrypoint.name)
     shutil.copy2(args.entrypoint, target)
+    for extra in args.extra_file:
+        if not extra.is_file():
+            raise SystemExit(f"Extra file not found: {extra}")
+        extra_target = args.output / extra.name
+        if extra_target == target:
+            raise SystemExit(f"Extra file collides with entrypoint: {extra.name}")
+        shutil.copy2(extra, extra_target)
     metadata = {
         "id": args.id,
         "title": args.title,

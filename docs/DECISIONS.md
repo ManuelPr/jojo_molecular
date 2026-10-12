@@ -163,3 +163,86 @@ Seguire Scenario C: scalare la library analogica, indicizzarla e provare DreaMS
 congelato. Misurare Tier 1 coverage in parallelo. ICEBERG/GLACIER entra solo
 dopo un probe economico sul residuo same-formula; nessun grande training viene
 autorizzato dalla conclusione di Goal 4.
+
+## ADR-019 - E6 congelato come controllo di regressione Goal 5
+
+**Data:** 2026-10-10
+**Stato:** accettata
+
+Il commit `04a6a89ae7fc6c32d4a65f6f63450864f5a00abc`, gli hash dei dati,
+il manifest, le metriche E0/E6 e il CSV v4 sono un contratto immutabile. Le
+estensioni Goal 5 vivono in nuovi moduli e confrontano ogni challenger con E6 a
+parità di stage. Nessun risultato Goal 4 viene ricalcolato retroattivamente.
+
+## ADR-020 - Validation domain-matched in tre condizioni e holdout sigillato
+
+**Data:** 2026-10-10
+**Stato:** accettata
+
+Usare `enveda-np-examples`/timsTOF come proxy di dominio, non come stima
+imparziale del test. Separare A library-visible, B structure-known/spectra-hidden
+e C structure-absent. Escludere fisicamente i 16 final Goal 4, gli hash delle
+query e le identità sealed dalle reference development. Il sealed viene aperto
+una sola volta dopo aver fissato E7-E12.
+
+## ADR-021 - Indici esatti prima di ANN
+
+**Data:** 2026-10-10
+**Stato:** accettata
+
+Per massa e formula usare array ordinati, posting list, `searchsorted`, mmap e
+checksum. Per gli analoghi usare un prefilter esatto sulla massa neutra prima
+dello scorer Goal 4 invariato. FAISS/HNSW non è giustificato per una query
+monodimensionale e non può sostituire il fallback nearest-mass; sarà rivalutato
+solo per un canale vettoriale che risulti un collo di bottiglia misurato.
+
+## ADR-022 - DreaMS è environment-blocked, non model-rejected
+
+**Data:** 2026-10-10
+**Stato:** accettata
+
+Non installare DreaMS direttamente nell'ambiente di scoring Python 3.13/RDKit
+2026.03.3. L'upstream pinna Python 3.11 operativo, Torch 2.2.1, NumPy 1.25,
+PyArrow 15 e RDKit 2023.9.6 e richiede un checkpoint da 1,24 GB. Il probe dovrà
+girare in un wheelhouse Python 3.11 isolato ed esportare embedding verificati.
+L'assenza del run non è evidenza negativa sulla qualità del modello.
+
+## ADR-023 - Nessun prior di database senza evidenza inference-safe
+
+**Data:** 2026-10-10
+**Stato:** accettata
+
+E11 resta non eseguito. La frequenza di una struttura nel train o la presenza
+in una sorgente non diventa automaticamente un prior chimico generalizzabile;
+può riflettere sampling della library e peggiorare novelty. Un prior entrerà
+solo con provenance, definizione disponibile in inferenza e delta stabile su
+development e sealed.
+
+## ADR-024 - Kaggle per smoke e inferenza, VM per elaborazioni lunghe
+
+**Data:** 2026-10-12
+**Stato:** accettata
+
+Lo sviluppo locale resta limitato a codice, compile check e unit test. Kaggle
+viene usato per smoke test ridotti e inferenza offline compatibile con la
+competizione, non per canonicalizzazione completa o benchmark di molte ore. I
+rebuild del catalogo, la preparazione delle reference e gli esperimenti E7–E12
+completi vanno spostati su una VM esterna con artifact persistenti. Nessuna VM a
+pagamento viene avviata senza approvazione esplicita.
+
+Motivo: Goal 5 v2 ha consumato circa 11 h 58 min quasi interamente nella
+canonicalizzazione prima del limite Kaggle; v3 ha impiegato 2 h 50 min 55 s per
+raggiungere la prima valutazione development. Il costo non è adatto al ciclo di
+debug Kaggle.
+
+## ADR-025 - Goal 5 congelato a checkpoint incompleto
+
+**Data:** 2026-10-12
+**Stato:** accettata
+
+Non iniziare Goal 6 e non promuovere E7–E12 finché non esiste un artifact
+terminale con metriche development e sealed. Il kernel v4 già attivo può
+terminare, ma non va sostituito da un nuovo run Kaggle. Se supera 4 ore senza
+artifact terminale, proporre la cancellazione; 8 ore è il limite operativo per
+questo benchmark. L'eventuale cancellazione deve preservare log, versione e
+artifact recuperabili.

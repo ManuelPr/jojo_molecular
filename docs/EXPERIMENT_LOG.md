@@ -364,3 +364,69 @@ VRAM 0. Test finali: 153 passed, 7 skipped, coverage 66%.
 **Decisione:** promuovere E6 come baseline Goal 4 e passare a Goal 5 Scenario
 C (scaling/indexing del retrieval analogico, DreaMS frozen probe). Conservare
 E0 come controllo e non promuovere E5 dal final holdout.
+
+## EXP-013 - Goal 5 v2: build C1 recuperato, runtime non sostenibile
+
+**Data:** 2026-10-10/11
+
+**Kernel:** `mperni/casmi26-goal5-scalable-retrieval`, versione 2,
+`CANCEL_ACKNOWLEDGED` al limite del worker
+
+**Submission:** nessuna
+
+Il run ha costruito e salvato il catalogo C1 completo: 271.439 strutture
+canoniche, 50.662 formule uniche, 11 sorgenti train, RDKit 2026.03.3. Gli array
+checksummed occupano 34.821.876 byte. Ha inoltre prodotto il piano domain
+A/B/C: 234 identità eleggibili, 188 development, 46 sealed, 1.097 query e
+54.950 reference prima delle mask.
+
+Il log raggiunge 43.084,15 s, circa 11 h 58 min, quasi interamente assorbiti da
+canonicalizzazione/tautomer enumeration. Non esistono metriche E7–E12 complete.
+Gli artifact utili sono conservati sotto `artifacts/goal5_kaggle_v2/`.
+
+**Decisione:** rendere C1 un artifact persistente e non ricostruirlo in ogni
+kernel. Spostare futuri rebuild completi su VM esterna.
+
+## EXP-014 - Goal 5 v3: prebuilt C1 e failure E12
+
+**Data:** 2026-10-12
+
+**Kernel:** stesso kernel, versione 3, `ERROR`
+
+**Runtime effettivo:** 10.254,61 s (2 h 50 min 54,6 s)
+
+**Submission:** nessuna
+
+Il run riusa C1, limita le reference a 2.932 prima delle mask e conserva la
+stessa membership/commitment sealed. Fallisce nella prima valutazione
+development con:
+
+`ValueError: Ranked candidates for query 'AAWZDTNXLSGCEK' are outside its pool`
+
+La causa è un'invariante E12: l'ordine mass-anchor conservava candidati E10
+eliminati dalla union RRF. La correzione filtra l'anchor sull'effettiva union
+pool; è stato aggiunto un test di regressione. Nessuna metrica parziale è
+promossa.
+
+## EXP-015 - Goal 5 v4: job già attivo al checkpoint
+
+**Data:** 2026-10-12
+
+**Kernel:** stesso kernel, versione 4, `RUNNING` al checkpoint
+
+**Avvio:** 11:22:34 UTC / 13:22:34 Europe/Rome
+
+**Durata verificata:** 2 h 09 min 00,6 s alle 15:31:34 Europe/Rome
+
+**Submission:** nessuna
+
+La v4 esercita la correzione E12 e riusa l'indice C1 persistente. Kaggle non
+espone il log mentre il job è attivo, quindi non è possibile attribuire uno
+stadio di avanzamento. Non viene ancora classificata come bloccata perché la
+durata era inferiore al punto di failure della v3. Nessun nuovo esperimento o
+run è stato avviato per questo checkpoint.
+
+**Stop-rule:** proporre la cancellazione se resta `RUNNING` oltre 4 ore senza
+artifact terminale; non superare 8 ore. Prima di cancellare, conservare stato,
+versione, log e output recuperabili. Al termine, raccogliere una sola volta gli
+artifact senza avviare un sostituto Kaggle.
