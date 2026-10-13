@@ -26,3 +26,11 @@ MRR@25 visualizzato 0,000, rank 3139/3140 allo snapshot. Non è stato creato un
 nuovo commit né eseguito tuning. Il risultato indica che la validation
 closed-world non calibra la candidate coverage hidden; E6 resta congelato.
 Dettagli in [docs/FIRST_SUBMISSION_PRECHECK.md](docs/FIRST_SUBMISSION_PRECHECK.md).
+
+Recovery aggiornata: il commit `cbf6416` introduce canonicalizzazione conforme
+allo scorer, runner fail-fast e inferenza C1 + E6 congelato. Il rehearsal v2 è
+`COMPLETE` in 1.119,35 s con 400×25 output validi. La seconda submission
+autorizzata `57135939` è `COMPLETE` ma resta a public 0,000, rank 3189/3193.
+Il solo bug C0 non spiegava quindi l'intero fallimento. Nessuna terza
+submission e nessun Goal 6; prossimo lavoro lungo su VM: COCONUT e ladder
+reference.

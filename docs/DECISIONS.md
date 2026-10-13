@@ -300,3 +300,16 @@ prima di investire in ulteriore reranking. Non si conclude che il reranker E6
 sia la causa dello zero: le truth hidden non sono disponibili. E6 resta
 congelato, il singolo score non viene usato per tuning e nessuna seconda
 submission viene autorizzata implicitamente.
+
+## ADR-029 - C1 necessario ma insufficiente; nessuna terza submission
+
+**Data:** 2026-10-13
+
+**Stato:** accettata
+
+La seconda submission `57135939` è stata eseguita su autorizzazione esplicita
+con C1 e ranking E6 congelato. Il public MRR@25 resta 0,000. Il troncamento C0
+è quindi un bug locale dimostrato, ma non la spiegazione sufficiente del
+fallimento pubblico. Non usare il secondo zero per modificare E6 né effettuare
+un terzo invio. Spostare il prossimo test informativo su VM: C2 COCONUT,
+reference scaling e misure offline; Goal 6 resta escluso.

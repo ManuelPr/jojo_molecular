@@ -17,3 +17,7 @@ completato. Nessun nuovo commit Kaggle e nessun tuning; l'invio richiede
 approvazione esplicita. ADR-027 registra l'esito pubblico 0,000 e stabilisce che
 la prossima evidenza debba riguardare candidate coverage/novelty open-world,
 senza modificare E6 o fare tuning sul leaderboard.
+
+ADR-029 registra che la recovery C1 + E6 (`57135939`) resta a public 0,000.
+C1 è necessario sul proxy ma insufficiente sul public set. Nessuna terza
+submission: prossima evidenza da COCONUT/reference scaling su VM, senza Goal 6.

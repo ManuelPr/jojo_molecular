@@ -131,3 +131,27 @@ e `artifacts/goal4_kaggle_v4/submission.csv`.
 - prima di un altro invio, dimostrare offline che il candidate generator tratta
   strutture non presenti nel catalogo train-only;
 - mantenere Goal 5 e il futuro workflow VM separati da questa calibrazione.
+
+## Seconda calibrazione — recovery C1 + E6 congelato
+
+| Campo | Valore |
+|---|---|
+| Submission ref | `57135939` |
+| Kernel/versione | `mperni/casmi26-recovery-c1-frozen-e6` v2 |
+| Commit | `cbf641604bccaf42255e14ade5470f7b1448f4a4` |
+| Catalogo | C1, 271.439 strutture |
+| Ranking | E6 congelato, peso 0,5, 127 reference |
+| Runtime kernel verificato | 1.119,35 s |
+| CSV | 400 righe, 25 candidati/riga, valido |
+| SHA-256 CSV | `dc17aed23d7ab200de4ad8e1781de0bbb147743a7aa612f382c719606c54c663` |
+| Stato | `COMPLETE` |
+| Public MRR@25 | **0,000** |
+| Rank snapshot | **3189 / 3193** |
+| Snapshot | `2026-10-13T08:56:16Z` |
+
+Il public score non è stato usato per scegliere feature o pesi: l'unica
+modifica rispetto a E6 è la correzione del percorso di canonicalizzazione e
+l'espansione pre-dichiarata C0→C1. Il mancato cambiamento del public score
+dimostra che C1 non risolve il problema end-to-end; non dimostra se il residuo
+sia interamente coverage esterna, domain shift o un errore hidden-only. Non è
+autorizzata né pianificata una terza submission senza nuova evidenza offline.

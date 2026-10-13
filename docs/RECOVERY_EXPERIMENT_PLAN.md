@@ -163,3 +163,13 @@ Questo percorso attacca prima il difetto dimostrato (membership C0), poi la
 capacità di ordinare i nuovi distractor, e rinvia i database più costosi finché
 non producono informazione decisionale.
 
+## Checkpoint eseguito 2026-10-13
+
+R0 e R4 sono completate nel commit
+`cbf641604bccaf42255e14ade5470f7b1448f4a4`. Il kernel recovery v2 ha usato C1
+verificato, E6 congelato e nessun fallback; runtime 1.119,35 s, 400 righe e 25
+candidati per riga. La seconda submission autorizzata `57135939` è terminata
+con public 0,000 e rank 3189/3193. Di conseguenza R1 risolve la coverage sul
+proxy ma non supera il gate pubblico. Il passo successivo resta R2/R3 su VM,
+partendo da COCONUT; non eseguire una terza submission né iniziare Goal 6.
+

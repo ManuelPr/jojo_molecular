@@ -140,3 +140,13 @@ coverage, ma riduce Hit@1 in tutte le celle A/B. Questo è il vincolo centrale
 per C2/C3: il valore di un tier esterno dipenderà dalla capacità di reranking,
 non soltanto dalla membership.
 
+## Calibrazione pubblica C1
+
+La pipeline C1 + E6 congelato è stata inviata una sola volta come recovery
+submission `57135939`. Nonostante C1 porti il catalog recall del proxy
+domain-matched da 57,45% a 100%, il public MRR@25 è rimasto 0,000. Il risultato
+non misura direttamente il catalog recall hidden, ma dimostra che l'espansione
+C0→C1 non è sufficiente per la competizione. C2 COCONUT diventa quindi il
+prossimo test di coverage più economico; deve essere costruito e validato su VM,
+non selezionato tramite un terzo tentativo leaderboard.
+

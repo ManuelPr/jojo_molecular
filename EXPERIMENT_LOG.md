@@ -19,3 +19,9 @@ EXP-016 verifica il preflight E6. EXP-017 registra l'unica submission ufficiale:
 Goal 4 v4, ref `57109254`, stato `COMPLETE`, public MRR@25 visualizzato 0,000 e
 rank 3139/3140. Nessun tuning o secondo invio; priorità diagnostica alla
 candidate coverage/novelty open-world.
+
+EXP-019 registra il runner fail-fast e il rehearsal recovery v2: C1 da 271.439
+strutture, E6 congelato, 400×25 output validi e runtime 1.119,35 s. EXP-020
+registra la seconda submission autorizzata `57135939`: `COMPLETE`, public
+0,000, rank 3189/3193. Il passaggio C0→C1 non risolve il public set; nessun
+terzo invio e nessun tuning leaderboard.

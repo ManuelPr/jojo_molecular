@@ -169,3 +169,28 @@ ranking E6 congelato non sfrutta bene i distractor aggiunti. L'effetto puro
 127→2.748 reference non è isolato da una ladder controllata e resta da misurare
 su VM.
 
+## Addendum 2026-10-13 — seconda submission di recovery
+
+L'audit dello scorer ufficiale ha trovato un difetto reale: prima della
+tautomerizzazione lo scorer esegue `Chem.RemoveStereochemistry`, mentre la
+funzione locale non lo faceva. La funzione e il writer sono stati corretti e
+coperti da un test derivato dall'implementazione ufficiale. Il confronto sui
+10.000 slot della prima submission ha però prodotto **zero** InChIKey14
+diversi: il difetto non spiega lo 0,000 della submission 57109254.
+
+Il difetto C0 è stato corretto separatamente con una pipeline fail-fast che
+usa C1 da 271.439 strutture e conserva esattamente E6 (`analog_score`, peso
+0,5, same-formula, 127 reference). Il rehearsal Kaggle v2 è `COMPLETE`:
+400 query, 1.213 spettri, 25 candidati canonici unici per riga, runtime kernel
+1.119,35 s e CSV SHA-256
+`dc17aed23d7ab200de4ad8e1781de0bbb147743a7aa612f382c719606c54c663`.
+
+La seconda submission autorizzata, ID `57135939`, è `COMPLETE` ma ha ancora
+Public MRR@25 visualizzato **0,000**. Il dump leaderboard del
+`2026-10-13T08:56:16Z` registra posizione 3189/3193. Questo falsifica
+l'ipotesi che il solo troncamento C0 fosse la causa sufficiente. C0 rimane un
+bug dimostrato sul proxy domain-matched, ma il public set richiede molto
+probabilmente coverage esterna/novelty non contenuta nemmeno in C1, oppure
+esiste un difetto hidden-only che i log consentiti non rendono osservabile.
+Nessuna terza submission viene proposta senza nuova evidenza offline.
+

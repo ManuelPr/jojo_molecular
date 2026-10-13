@@ -88,3 +88,16 @@ Prima di proporre una seconda submission occorre produrre evidenza offline che
 il candidate generator recuperi strutture non presenti nel catalogo train-only.
 Non usare il leaderboard per distinguere ipotesi di coverage, ranking o
 novelty. L'eventuale nuovo invio richiede una nuova approvazione esplicita.
+
+## Aggiornamento dopo la seconda submission
+
+La recovery C1 + E6 `57135939` è `COMPLETE` con public 0,000. Non ripetere C1
+e non fare una terza submission. Prossime attività, in ordine:
+
+1. predisporre la VM esterna con checkpoint, checksum e budget;
+2. costruire C2 = C1 + COCONUT e misurare coverage/ranking offline;
+3. eseguire la ladder reference 127/512/2.000/2.748 con E6 congelato;
+4. riesaminare il percorso hidden-only solo tramite log e test consentiti;
+5. aprire un nuovo gate prima di qualsiasi ulteriore submission.
+
+Goal 6 resta non iniziato. Kaggle rimane limitato a smoke e inferenza.

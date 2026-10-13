@@ -520,3 +520,40 @@ distinguere direttamente target assente e target oltre rank 25.
 **Decisione:** conservare la submission come unico punto di calibrazione. Non
 modificare E6, non eseguire tuning sul leaderboard e non effettuare una seconda
 submission senza nuova approvazione ed evidenza offline.
+
+## EXP-019 - Recovery v1/v2, canonicalizzazione ufficiale e C1
+
+**Data:** 2026-10-13
+
+**Kernel:** `mperni/casmi26-recovery-c1-frozen-e6`
+
+La v1 è terminata `ERROR` dopo 17,28 s: il nuovo runner richiedeva per errore
+quattro spettri per identità, mentre il contratto E6 congelato ne usa tre. Il
+fail-fast ha impedito inferenza e submission. La v2 corregge esclusivamente
+questo parametro e termina `COMPLETE`.
+
+Risultati v2: C1 271.439 strutture con checksum verificati, 127 reference E6,
+400 molecole/1.213 spettri, 25 candidati validi e unici per riga, runtime
+inference report 1.099,79 s e runtime log completo 1.119,35 s. CSV SHA-256
+`dc17aed23d7ab200de4ad8e1781de0bbb147743a7aa612f382c719606c54c663`.
+Il test suite chiude con 210 pass e 7 skip PyTorch opzionali.
+
+## EXP-020 - Seconda submission ufficiale recovery
+
+**Data:** 2026-10-13
+
+**Submission ref:** `57135939`
+
+**Kernel/versione:** recovery C1 frozen E6, v2
+
+**Commit:** `cbf641604bccaf42255e14ade5470f7b1448f4a4`
+
+La submission autorizzata termina `COMPLETE`. Public MRR@25 visualizzato
+**0,000**; leaderboard snapshot `2026-10-13T08:56:16Z`: rank 3189/3193,
+leader 0,491. Il runtime hidden non è esposto; turnaround osservato fra
+2.792,30 e 3.113,07 s. Nessun peso/feature è stato modificato in risposta alla
+prima submission.
+
+**Decisione:** C1 corregge un difetto reale ma non è sufficiente sul public
+set. Non eseguire un terzo invio. La prossima evidenza deve provenire da C2
+COCONUT/reference scaling su VM e da controlli hidden-path consentiti.

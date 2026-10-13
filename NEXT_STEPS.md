@@ -17,3 +17,7 @@ cache, checkpoint, resume, monitoraggio e budget esplicito.
 La prima submission E6 v4 è completata: public 0,000, rank 3139/3140. E6 resta
 congelato. Prima di qualunque secondo invio occorre evidenza offline su un
 candidate generator open-world e una nuova approvazione esplicita.
+
+La seconda submission autorizzata `57135939` è ora `COMPLETE` con public 0,000
+e rank 3189/3193. Non eseguire un terzo invio. Predisporre la VM e misurare C2
+COCONUT più la ladder reference con E6 congelato; Goal 6 resta vietato.

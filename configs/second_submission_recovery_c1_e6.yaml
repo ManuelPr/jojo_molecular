@@ -1,0 +1,71 @@
+submission_candidate_id: casmi26_recovery_c1_frozen_e6_second_official
+status: complete_scored
+submission_performed: true
+
+model:
+  goal: recovery_after_goal5
+  experiment: C1_frozen_E6
+  git_commit: cbf641604bccaf42255e14ade5470f7b1448f4a4
+  selected_feature: analog_score
+  evidence_weight: 0.5
+  same_formula_policy: mass_top_anchor_formula
+  tuning_after_first_submission: false
+
+catalog:
+  tier: C1_train_unique
+  structure_count: 271439
+  manifest_sha256: e45ad28d3730627d267735430a33a8bc091903659701a3def5e4c122408f1c20
+  original_c0_structure_count: 49195
+  reference_spectra: 127
+  reference_duplicate_excluded: 1
+
+kaggle:
+  competition: enveda-CASMI26-molecule-id-mass-spectra
+  kernel: mperni/casmi26-recovery-c1-frozen-e6
+  kernel_version: 2
+  kernel_status: COMPLETE
+  kernel_private: true
+  internet_enabled: false
+  accelerator: none
+  competition_source_attached: true
+  dataset_source: mperni/casmi26-baseline-assets
+  official_runtime_limit_seconds: 32400
+
+code_hashes:
+  runner_sha256: b2303251176ccb4b8cdd18803bbd371906a78412696208b4e59bf02c823cee4f
+  project_wheel_sha256: 68cfbf9f9142bee769e6f5ca56bfbe59aab73abbd2d70d323bb9b68f979a56e8
+  kaggle_log_sha256: a17d8bc6faac6a510d0622abb2536301ad86903a5de8a64765bb3593ec8a51cf
+
+verified_output:
+  submission_sha256: dc17aed23d7ab200de4ad8e1781de0bbb147743a7aa612f382c719606c54c663
+  inference_report_sha256: 17f01ba9d4d1939b69b74106d00e71594f79077bec77894130cebb47a6e5ad49
+  kernel_summary_sha256: ca420483a343cda60428dd928b1fe9b41ad143625959c12d3df02ede39af9049
+  row_count: 400
+  molecule_count: 400
+  test_spectrum_count: 1213
+  min_candidates: 25
+  max_candidates: 25
+  csv_valid: true
+
+resources:
+  inference_report_seconds: 1099.7900699020001
+  total_kernel_log_seconds: 1119.354400933
+  retrieval_seconds: 1.1307619240006943
+  ranking_seconds: 248.8493164450001
+  peak_vram_bytes: 0
+
+post_submission:
+  submission_ref: 57135939
+  description: "Recovery v2: C1 full-train catalog with frozen Goal 4 E6 ranking; no leaderboard tuning"
+  status: COMPLETE
+  public_mrr_at_25_displayed: "0.000"
+  public_rank: 3189
+  leaderboard_team_count: 3193
+  leaderboard_snapshot_utc: 2026-10-13T08:56:16Z
+  leaderboard_leader_score: "0.491"
+  submission_timestamp_utc: 2026-10-13T08:01:16.400000Z
+  hidden_runtime_seconds: null
+  hidden_runtime_note: not_exposed_by_kaggle_cli_or_submission_api
+  scoring_turnaround_lower_bound_seconds: 2792.298
+  scoring_turnaround_upper_bound_seconds: 3113.066
+  tuning_after_submission: false

@@ -176,3 +176,18 @@ diretta sulle truth hidden. La priorità successiva, quando Goal 5 riprenderà, 
 validare offline un candidate generator open-world prima di un'altra
 submission. Dettagli in `FIRST_SUBMISSION_PRECHECK.md` e
 `LEADERBOARD_CALIBRATION.md`.
+
+## Recovery C1 e seconda submission — 2026-10-13
+
+Il percorso candidato è ora fail-fast e replica lo scorer ufficiale rimuovendo
+la stereochimica prima della canonicalizzazione tautomerica. Il bug di
+canonicalizzazione non cambiava però nessuno dei 10.000 slot della prima
+submission. Il bug di catalogo C0 è stato corretto sostituendo 49.195
+strutture con l'indice C1 verificato da 271.439, mantenendo E6 congelato.
+
+Kaggle recovery v2 è `COMPLETE`: 400 query, 1.213 spettri, 25 candidati/riga,
+127 reference, runtime 1.119,35 s e 210 test passati (7 skip opzionali). La
+seconda submission autorizzata `57135939` è `COMPLETE`, public 0,000, rank
+3189/3193. C1 non è quindi sufficiente. Goal 6 resta non iniziato; nessuna
+terza submission. La priorità è C2 COCONUT e scaling reference su VM con
+evidenza offline, poi un nuovo gate esplicito.
