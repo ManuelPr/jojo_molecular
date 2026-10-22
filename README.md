@@ -1,5 +1,7 @@
 # jojo_molecular — Enveda CASMI 2026
 
+Joestar dinasty repo created to smash kaggle comps.
+
 Code, experiment history and reproducible Kaggle notebook builders for molecule
 identification from tandem mass spectra.
 
