@@ -1,5 +1,12 @@
 # Fastweb / Slurm handoff — 2026-10-22
 
+Update after remote verification: the user reports a working H100 allocation,
+8 logical CPUs and 32 GiB RAM, with CUDA preflight and tests passed. Data and
+weights are still missing. Follow [the updated experiment plan](FASTWEB_GPU_EXPERIMENT_PLAN.md)
+and [22 October public audit](PUBLIC_NOTEBOOK_GAP_2026-10-22.md) for current
+priorities. Keep this guide for the existing entry points; do not rerun setup
+in the verified environment merely because the code was updated.
+
 The user already has a GPU-backed VS Code allocation. Use that allocation's
 terminal for setup and the first preflight. This handoff does not submit a
 cluster job or a Kaggle competition submission automatically.

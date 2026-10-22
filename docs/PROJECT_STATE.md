@@ -1,5 +1,30 @@
 # Stato progetto CASMI 2026
 
+## Fastweb verificato; aggiornamento pubblico e selezione esperimenti — 2026-10-22
+
+Dal report remoto fornito dall'utente: job esistente 2541, H100 80 GB, 8 CPU
+logiche, 32 GiB RAM; CUDA forward/backward e pip check passati; 252 test passati,
+2 saltati, 1 real-data escluso. Train e pesi non trovati: nessun training eseguito.
+Report recepito, non rieseguito da questa macchina. Preservare ambiente e split.
+
+Audit odierno: 30 notebook scoperti via CLI, 8 sorgenti scaricati e pagine score
+controllate. Migliore score pubblico verificato 0.464 (Gu V492 V1, Amr V1,
+Dmitrii best V20); nostro best ancora 0.440. Flexon V49 = 0.457 contro V47 =
+0.462: ensemble multi-CE non promosso. Nuovi asset: FPNet fold-safe, PubChemLite,
+panel diagnostico e librerie/priors aggiornati. I fold pubblici non sostituiscono
+i nostri split congelati; full1/A+B/simulatori richiedono audit overlap separato.
+
+Selezionati F0 porting/tabelle competitive, G1 proxy GLACIER + ICEBERG, G2 FPNet
+identity-excluded, G3 ranker finale; G4 generazione solo se manca copertura.
+Documenti: `docs/PUBLIC_NOTEBOOK_GAP_2026-10-22.md`, `docs/notebook_inventory.csv`,
+`docs/FASTWEB_GPU_EXPERIMENT_PLAN.md`. Manifest snapshot dati con versioni e
+dimensioni API e planner di download senza esecuzione aggiunti. Nessun nuovo
+modello addestrato, job o submission avviato. Fonte/score verificati non implicano
+pin storici dei dataset: la riproduzione 0.464 deve ancora risolverli.
+Verifiche locali dell'aggiornamento: planner starter/full coerente fra JSON e
+shell, quoting di percorsi con spazi e percorsi POSIX corretto, 8 hash sorgente
+registrati, `git diff --check` passato. Nessun download massivo locale.
+
 ## Handoff GitHub / Fastweb — 2026-10-22
 
 Richiesta utente: pubblicare il lavoro su `ManuelPr/jojo_molecular` per clonarlo

@@ -9,15 +9,24 @@ identification from tandem mass spectra.
 
 - Public Flexon v89 reproduction: **0.440 MRR@25**, independently submitted.
 - Our PubChem forward-consensus experiment: **0.440**, no measured improvement.
-- Public V22/Forensics recipes audited at **0.451 on 2026-10-16**; not reproduced
-  here. This is a dated observation, not a claim about today's best score.
+- Public recipes audited through **2026-10-22**: strongest verified public
+  notebook score **0.464**, not reproduced here. Flexon's latest multi-energy
+  treatment is 0.457 versus its best V47 at 0.462.
+- Fastweb H100 preflight/tests passed according to the remote report; official
+  training data and external assets still need staging. See the
+  [selected GPU experiments](docs/FASTWEB_GPU_EXPERIMENT_PLAN.md).
 - The proposed learned final fusion/ranker and a new generative model are
   **research plans, not newly trained models included in this repository**.
 
 See [project state](docs/PROJECT_STATE.md), [master plan](CASMI26_MASTER_PLAN.md)
-and [public notebook comparison](docs/PUBLIC_NOTEBOOK_GAP_2026-10-16.md).
+and [public notebook comparison](docs/PUBLIC_NOTEBOOK_GAP_2026-10-22.md).
 
 ## Start in the existing Fastweb GPU / VS Code allocation
+
+For the already verified allocation, preserve the environment and follow the
+[updated data/experiment plan](docs/FASTWEB_GPU_EXPERIMENT_PLAN.md). The setup
+commands below are for a fresh checkout/environment. Goal 3 remains an existing
+research regression run; competitive-pipeline evidence and G1/G2 now take priority.
 
 ```bash
 git clone https://github.com/ManuelPr/jojo_molecular.git

@@ -1,5 +1,16 @@
 # Next steps — Goal 5 checkpoint
 
+## Priorita aggiornate Fastweb — 2026-10-22
+
+Seguire `docs/FASTWEB_GPU_EXPERIMENT_PLAN.md`: ambiente H100 gia verificato
+secondo il report remoto; prima dati ufficiali e asset versionati, quindi F0
+porting/profiling della pipeline competitiva e G1 copertura proxy GLACIER + ICE.
+G2 e il primo training selezionato: FPNet con esclusione delle identita e poi
+una sola modifica controllata. G3 apprende la fusione sulle evidenze in cache.
+Goal 3 legacy non e la priorita scientifica, ne una replica del nostro 0.440.
+Nuovo riferimento pubblico verificato 0.464; vedere audit 22 ottobre.
+Non modificare split congelati; non lanciare nuova allocazione o submission.
+
 ## PubChem Consensus: risultato ufficiale invariato0,440 — 2026-10-16
 
 SDK verificato08:52:22UTC: submission **57243687 COMPLETE**, public **0,440**,

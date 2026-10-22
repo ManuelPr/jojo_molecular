@@ -1,0 +1,85 @@
+{
+  "audit_date": "2026-10-22",
+  "scope": "New research snapshot; historical scored notebook mounts not established",
+  "notebook_control": "https://www.kaggle.com/code/guhongbin/casmi26-v492-dg-v19?scriptVersionId=361010883",
+  "assets": [
+    {
+      "kind": "competition_file",
+      "competition": "enveda-CASMI26-molecule-id-mass-spectra",
+      "file": "train.parquet",
+      "directory": "competition",
+      "group": "starter",
+      "api_bytes": 3033286496
+    },
+    {
+      "kind": "competition_file",
+      "competition": "enveda-CASMI26-molecule-id-mass-spectra",
+      "file": "test.parquet",
+      "directory": "competition",
+      "group": "starter",
+      "api_bytes": 4848729
+    },
+    {
+      "kind": "competition_file",
+      "competition": "enveda-CASMI26-molecule-id-mass-spectra",
+      "file": "sample_submission.csv",
+      "directory": "competition",
+      "group": "starter",
+      "api_bytes": 43619
+    },
+    {
+      "kind": "dataset",
+      "source": "dmitriigluzdov/casmi26-fold-safe-fpnet",
+      "version": 5,
+      "directory": "casmi26-fold-safe-fpnet-v5",
+      "group": "starter",
+      "api_bytes": 1071751236,
+      "license": "Other (specified in description)"
+    },
+    {
+      "kind": "dataset",
+      "source": "dmitriigluzdov/casmi26-natural-product-panel-benchmark",
+      "version": 10,
+      "directory": "casmi26-natural-product-panel-benchmark-v10",
+      "group": "starter",
+      "api_bytes": 233058969,
+      "license": "Other (specified in description)"
+    },
+    {
+      "kind": "dataset",
+      "source": "dmitriigluzdov/casmi26-attributed-v4g-reproduction-assets",
+      "version": 6,
+      "directory": "casmi26-attributed-v4g-reproduction-assets-v6",
+      "group": "full",
+      "api_bytes": 20004181617,
+      "license": "CC BY-NC-SA 4.0"
+    },
+    {
+      "kind": "dataset",
+      "source": "dmitriigluzdov/casmi26-pubchem-popularity-prior",
+      "version": 10,
+      "directory": "casmi26-pubchem-popularity-prior-v10",
+      "group": "full",
+      "api_bytes": 11574486009,
+      "license": "Other (specified in description)"
+    },
+    {
+      "kind": "dataset",
+      "source": "dmitriigluzdov/casmi26-natural-product-knowledge-table",
+      "version": 9,
+      "directory": "casmi26-natural-product-knowledge-table-v9",
+      "group": "full",
+      "api_bytes": 135346754,
+      "license": "Other (specified in description)"
+    },
+    {
+      "kind": "dataset",
+      "source": "franciscoangulo/casmi26-pubchemlite-cc0-candidate-fingerprints",
+      "version": 1,
+      "directory": "casmi26-pubchemlite-cc0-candidate-fingerprints-v1",
+      "group": "full",
+      "api_bytes": 361183272,
+      "license": "CC0: Public Domain"
+    }
+  ]
+}
