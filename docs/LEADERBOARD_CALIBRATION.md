@@ -1,5 +1,13 @@
 # Goal 4 — Leaderboard calibration
 
+**Nuovo controllo 2026-10-13:** public four-channel v2, submission `57143111`,
+COMPLETE, public MRR@25 **0,298**, nessun errore API. Dettagli riproducibili in
+`PUBLIC_BASELINE_CONTROL.md`. Non è un'ablation isolata di E6.
+
+**Rettifica API 2026-10-13:** `57135939` ha score assente ed errore non gestito
+nel rerun hidden, non un secondo 0,000. Le note storiche su quel punteggio sono
+superate. `57109254` ha effettivamente score 0.000 senza errore API.
+
 Ultimo aggiornamento: 2026-10-12
 
 Checkpoint Goal 5 (2026-10-12): il kernel Goal 5 v4 resta separato dalla

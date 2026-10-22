@@ -1,0 +1,7 @@
+* text=auto
+*.sh text eol=lf
+*.sbatch text eol=lf
+*.py text eol=lf
+*.toml text eol=lf
+# Preserve byte hashes of vendored, version-pinned upstream sources.
+third_party/** -text

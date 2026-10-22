@@ -1,5 +1,290 @@
 # Registro esperimenti
 
+## PubChem Consensus: risultato ufficiale invariato0,440 — 2026-10-16
+
+SDK verificato08:52:22UTC: submission **57243687 COMPLETE**, public **0,440**,
+private assente, error_description vuoto. Baseline v89 **57229265 = 0,440**;
+delta alla precisione pubblicata **0,000**. Nessun guadagno pubblico dimostrato.
+Il punteggio arrotondato aggregato non prova predizioni identiche: gate inattivo,
+modifiche senza effetto sui ranghi corretti, compensazioni o delta sotto la
+precisione pubblicata restano possibili. Il placeholder aveva0 eleggibili;
+questo non stabilisce l'attivazione sul hidden.
+
+Decisione: conservare la v89 come baseline primaria; Consensus resta esperimento
+senza beneficio misurato, non promuoverlo come miglioramento. Il replay PG1
+(+0,035904 su proxy fuori catalogo) usava gate e modelli diversi dalla v89:
+era evidenza del componente, insufficiente per prevedere un guadagno end-to-end.
+Prima di altre submission costruire una validazione della pipeline v89 effettiva
+con identita escluse dalle reference spettrali, strutture mantenute nei cataloghi
+per proxy tipo2 e coorte separata di controllo library. Separare copertura del
+pool, perdita nel pruning, rango prima/dopo fusione e promozioni realmente utili.
+Non allentare soglie sulla base del solo public; nessun nuovo invio autorizzato.
+Fonte: `artifacts/pubchem_consensus/official_submission_status.json`.
+
+## PubChem Consensus v2 COMPLETE e submission inviata — 2026-10-15
+
+Kernel `mperni/casmi26-pubchem-forward-consensus` v2 COMPLETE. Audit indipendente
+PASS: controllo v89 e trattamento,400/400 righe e replay,25 candidati validi e
+distinti per riga,9863 SMILES verificati sul controllo. ICEBERG371 e GLACIER366
+molecole supportate, senza errori. Overlay sul placeholder inattivo:0 eleggibili,
+0 liste modificate. Questo non misura l'attivazione sul hidden.
+Il finalizer ha inviato UNA submission **57243687** alle20:42:13UTC
+(**22:42:13 Europe/Rome**), dopo audit superato. SDK alle20:55:49UTC:
+**PENDING**, public score assente, error_description vuoto.
+Receipt: `artifacts/pubchem_consensus/submission_receipt.json`; audit e output
+in `artifacts/pubchem_consensus/output_v2/`; stato ufficiale completo in
+`artifacts/pubchem_consensus/official_submission_status.json`.
+Confronto atteso con baseline v89 **0,440**. Non inviare duplicati; finalizer
+terminato dopo invio e submit_intent persistente impedisce ripetizioni.
+
+## Riparazione PubChem Consensus v2 — 2026-10-15
+
+La v1 e terminata ERROR nell'ultima cella: json.dumps(evidence) non accetta
+chiavi tuple. Il helper upstream metric_identity restituisce (InChIKey14,
+heavy_atom_composition), mentre overlay e auditor richiedevano identita stringa.
+Base e simulatori completati, ma nessuna submission ufficiale inviata: finalizer
+fermato senza submit_intent. Corretto l'adattatore per usare l'upstream
+canonicalize_smiles_to_ik14 (componente canonica ufficiale) senza cambiare
+coefficienti, modelli o regola di promozione. Aggiunti due test d'integrazione
+CSV/JSON con identita upstream tuple, ramo protetto e ramo promozione attivo.
+8 test policy/integration PASS; finalizer single-submit verificato senza rete.
+
+Kernel `mperni/casmi26-pubchem-forward-consensus` **v2 RUNNING** dalle circa
+20:08 Europe/Rome. SHA256 notebook:
+`aa23745fbb0ca5955f5bf9eed8e0aaac3cf88af9fd84e42a0daeddb35f068586`.
+Finalizer riavviato PID5728, fissato a v2 e nuovo hash, stessa autorizzazione
+per UN invio entro mezzanotte locale, solo dopo audit. Log v1 conservato;
+nuovi log finalizer_v2_stdout/stderr.log. Nessun invio duplicato manuale.
+
+## Risultato ufficiale replica v89: 0,440 — 2026-10-15
+
+SDK verificato alle17:49:50 UTC (19:49:50 Europe/Rome): submission **57229265**
+COMPLETE, public MRR@25 **0,440**, private assente, error_description vuoto.
+Guadagno **+0,101** rispetto al miglior risultato precedente0,339, **+0,102**
+rispetto a expanded+GLACIER0,338. Riprodotto lo score pubblico storico della
+v89 alla precisione pubblicata; superato0,42. Non implica parita per molecola,
+risultato private, o soluzione completa delle classi2/3. Congelare v1 e i16 asset
+come nuova baseline competitiva. Fonte: `artifacts/flexon_v89/official_submission_status.json`.
+La variante PubChem Forward Consensus resta separata e predefinita prima di
+questo risultato: RUNNING, ICEBERG completo senza errori, GLACIER avviato;
+finalizer PID16988 attivo. Non cambiare la variante in risposta allo score.
+
+## Nuova submission tipo 2 autorizzata e in preparazione — 2026-10-15
+
+Utente richiede un ultimo invio oggi, diverso dalla v89. Kernel privato
+`mperni/casmi26-pubchem-forward-consensus` v1 RUNNING: v89 invariata piu
+promozione del primo candidato PubChem solo su confidenza originale e stretto
+accordo del simulatore. Proxy componente188: catalogo noto invariato0,771306;
+catalogo escluso0,043579 -> 0,079483 (9 recuperi,0 regressioni). Non e una
+validazione end-to-end v89: gate e modelli del proxy differiscono.
+8 test policy PASS, finalizer verificato senza rete. Processo locale nascosto
+attende COMPLETE, verifica sorgente/audit400, quindi invia v1 UNA volta entro
+mezzanotte Europe/Rome; si ferma su errori. Non duplicare manualmente l'invio.
+Stato in `artifacts/pubchem_consensus/finalizer_state.json`; dettagli in
+`PUBCHEM_FORWARD_CONSENSUS.md`. V89 57229265 ancora PENDING alle15:31UTC.
+
+## Replica v89: submission ufficiale inviata — 2026-10-15
+
+Utente autorizza con "andiamo" dopo audit completo. Inviata una sola submission,
+**57229265**, da `mperni/casmi26-flexon-v89-faithful-reproduction` **v1**,
+output `submission.csv`, alle **11:55:39 UTC / 13:55:39 Europe/Rome**.
+Ricevuta Kaggle: 4 invii residui oggi. Stato iniziale **PENDING**, score pubblico
+assente. Stato completo in `artifacts/flexon_v89/official_submission_status.json`.
+La ricetta verificata e gli asset restano invariati. Attendere il rerun hidden;
+non confondere esecuzione visibile riuscita e risultato ufficiale. Nessun invio
+duplicato. Confrontare il futuro score con il nostro 0,339 e il riferimento
+pubblico storico 0,440, senza assumere che quest'ultimo sia riprodotto.
+
+## Replica Flexon v89 completata e verificata — 2026-10-15
+
+Kernel `mperni/casmi26-flexon-v89-faithful-reproduction` v1 COMPLETE.
+Runtime inferenza/osservatore 9432,59 s (2 h 37 min 13 s). Audit indipendente
+PASS: 400/400 molecole elaborate, 25 identita valide e distinte per riga,
+9863 SMILES verificati chimicamente, checksum corrispondenti. ICEBERG CUDA
+371/371 molecole supportate, GLACIER CUDA 366/366; nessun errore di predizione
+o feature. Output SHA256:
+`fa8399db3f1f27054a3e874fbeedc2e83e2fd5ef6e804d14efb0687dd40f1dcc`.
+Sul placeholder il fallback ICE modifica 5 liste e 1 top-1 rispetto a E004;
+overlay dual-polarity v89 non attivo (0 eleggibili), output identico a E006.
+Questo non misura accuratezza hidden. Replica tecnicamente pronta, score
+ufficiale ancora non misurato e nessuna submission inviata per questa ricetta.
+Artifact e audit: `artifacts/flexon_v89/output_v1/independent_audit.json`.
+
+## Riproduzione fedele Flexon v89 — 2026-10-15
+
+Utente: "riproduciamolo e poi capiamo come migliorare". Priorita alla replica
+della ricetta completa, dopo PubChem selettivo 0,339. Sorgente v89 fissato,
+16 versioni dataset storiche risolte via API. 34/35 celle identiche; unica
+modifica operativa: prova visibile completa400 invece di smoke12. Osservatore
+finale aggiunto senza cambiare ranking. Kernel privato
+`mperni/casmi26-flexon-v89-faithful-reproduction` v1 avviato, T4, offline.
+Attendere esito e audit indipendente; nessuna submission ufficiale inviata.
+Dettagli, hash e limiti in `FLEXON_V89_REPRODUCTION.md`.
+
+## Esito ufficiale PubChem selettivo — 2026-10-15
+
+Submission **57196384**, kernel `mperni/casmi26-selective-pubchem-submission`
+v1: SDK 08:41:00 UTC conferma `COMPLETE`, public **0,339**, private assente,
+`error_description` vuoto. Controllo **57184698 = 0,338**; differenza fra
+score pubblicati **+0,001**. Fonte: `artifacts/selective_pubchem/official_submission_status.json`.
+Nessuna misura hidden per molecola o per classe: impossibile ricostruire
+quanti recuperi/regressioni abbiano prodotto il saldo. Top-1 congelata per
+costruzione; candidati esterni limitati agli slot 4/8/12/16/20. Il risultato
+non dimostra che PubChem sia esaurito né giustifica tuning sul leaderboard.
+Conservare variante e controllo, approfondire recall e fusione offline.
+
+## Selective PubChem replay e kernel — 2026-10-14
+
+Cache PG1 complete e checksum validati. Replay188 con ranking expanded+GLACIER
+controllo 0,773666; gate library<0,9 e maxprob<0,3, inserimento PubChem
+slot4/8/12/16/20: MRR 0,771306, 58 liste cambiate, zero top-1. Proxy
+catalogo escluso: 0 -> 0,043579, 87 liste cambiate, zero top-1.
+11 test mirati PASS. Kernel privato
+`mperni/casmi26-selective-pubchem-submission` v1 COMPLETE in4092,94s;
+rehearsal400 e audit chimico indipendente PASS. Invio ufficiale **57196384**
+PENDING, score assente. Vedere `SELECTIVE_PUBCHEM_SUBMISSION.md`.
+
+## Esito ufficiale expanded+GLACIER — 2026-10-14
+
+SDK ufficiale alle 15:50:28 UTC: **57184698 COMPLETE**, public MRR@25
+**0,338**, private vuoto, error_description vuoto. Controllo **57143111 =
+0,298**; delta public **+0,040**. Risultato inferiore a obiettivo 0,42 e alla
+stima informale 0,35–0,38. L'OOF development 0,773666 sovrastima il public
+hidden in valore assoluto; cause specifiche non identificabili dal solo score.
+Placeholder400 protetto da library in rehearsal, ma nessuna misura di attivazione
+GLACIER hidden. Stato completo in `EXPANDED_GLACIER_SUBMISSION.md`.
+
+## Submission expanded+GLACIER inviata — 2026-10-14
+
+**57184698**,kernel v1,scriptVersionId358339073,16:01:44Europe/Rome.
+Rehearsal400 COMPLETE in3940,85s,0 fallback. Audit ID/writer/hash400/400 e
+9229 SMILES normalizzati PASS. Visibili tutti protetti da library>=.9;
+probe del ramoGPU identico con gli stessi dataset PASS,2 predizioni,no errori.
+Fonte/configurazione invariati. APIreceipt PENDING,score assente,errore vuoto;
+4 slot oggi residui. Monitorare questo ref, non inviare duplicati.
+
+## Expanded+GLACIER submission v1 avviato — 2026-10-14
+
+Autorizzazione esplicita "va bene! fallo" per inferenza400/audit/invio ufficiale.
+Writer parità188/188 PASS,9 unit test PASS. Kernel autonomo hidden-safe v1
+`mperni/casmi26-expanded-glacier-submission`, GPU T4, internetoff, nessun parent
+di cache e nessun PubChem. Avviato14:45Europe/Rome, hash nel report dedicato.
+Attendere COMPLETE, scaricare output filtrati, audit, poi inviare la stessa v1
+come già autorizzato. Nessuna submission ufficiale ancora inviata in questo step.
+
+## PG1 full188 completato — 2026-10-14
+
+GPU forward v2 COMPLETE, runtime1586,10s,159 query supportate,28653 predizioni,
+zero errori. Audit PASS, parità baseline188/188. Expanded+GLACIER OOF0,773666,
+delta vs expanded+0,083600 CI95[0,042792;0,123562]. PubChem+forward0,533008,
+proxy catalogo nascosto0,439629. Calibrazione OOF fissa39 feature:0,651308 e
+0,420117; ablation senza forward0,599697 e0,380366. Hash/cohort/fold/metric
+audit PASS. Migliore candidato standard: expanded train+COCONUT + GLACIER.
+Library-holdout A e inferenza400 necessari prima di promozione; nessun nuovo
+invio ufficiale e nessuna previsione public>0,42. Report completo PG1.
+
+## PG1 feature188 COMPLETE — 2026-10-14
+
+Kernel features-full v1, runtime3806,35s. Audit PASS, baseline188/188 identica
+al controllo congelato. MRR baseline80/expanded/PubChem/proxy catalogo nascosto:
+0,542091 /0,690067 /0,386795 /0,352583. Prune80 perde42 truth; delta expanded
++0,147976 CI95[0,102533;0,195222]. Recall candidati proxy118/188.
+Cache `features_full_v1`, hash e metriche nel report PG1. Forward GPU v2
+avviato sul cache fissato:159 query supportate,11772 grafi,424 condizioni.
+Budget40 locale già corretto; nessuna nuova submission ufficiale.
+
+## PG1 forward16 e rettifica budget — 2026-10-14
+
+GPU COMPLETE, 2474 predizioni/15 molecole supportate, runtime233,06s.
+Bug nel confronto: cache condiviso forniva score oltre i primi40 indipendenti
+della variante. Applicata maschera per variante, replay senza nuovo modello.
+Numeri precedenti PubChem0,7417/proxy0,4809 superati: corretti OOF0,60914 e
+0,47569. Expanded0,83724; baseline80 invariata0,6875. Audit PASS e regressione
+budget testata. Artifact `forward_v1_masked`; full188 featureCPU RUNNING.
+
+## PG1 PubChem + GLACIER — checkpoint 2026-10-14
+
+Probe CPU v3 COMPLETE; GPU v4 COMPLETE e parità raw CPU/GPU verificata su due
+strutture. Runtime isolato Python3.12/torch2.6/RDKit2025.03.6, scorer2026.03.3.
+Cache16 COMPLETE, runtime1686,56s, baseline16/16 RR uguali al controllo.
+Mrr baseline/no-cap/PubChem 0,6875/0,8177/0,4588; PubChem recupera12/16 nel
+proxy con catalogo base nascosto (Mrr0,4033). Non usare questi16 per dichiarare
+guadagno definitivo. Forward16 GPU e feature188 CPU avviati in job distinti,
+parametri invariati; nessun sealed né submission. Report `PUBCHEM_GLACIER_EXPERIMENT.md`.
+
+## Risultato submission diagnostica — 2026-10-13
+
+**57143111 / public-control v2: COMPLETE, public MRR@25 0.298, error vuoto.**
+Osservato via SDK ufficiale alle 16:30:44 Europe/Rome / 14:30:44 UTC; inviata
+12:08:58 UTC. Circa 142 minuti fra invio e osservazione del completamento,
+non una misura isolata del runtime hidden. Dettagli API salvati in
+`artifacts/public_baseline/kaggle_v2/official_submissions_detail.json`.
+Direction check positivo: pipeline multicanale esegue e predice sul hidden.
+Non attribuire il successo a un singolo canale/catalogo; non confondere la
+validation 0,5421 con una stima garantita del public. Nessun nuovo invio/job.
+
+## Guard recovery dipendente dal placeholder — 2026-10-13
+
+Report rehearsal recovery: reference_count_before_query_filter 128, un hash
+duplicato test escluso, reference_spectra 127. Il kernel richiede sempre 127
+dopo il filtro. AST del guard eseguito con report simulati: 127 PASS; 128
+RuntimeError "Frozen E6 reference library drifted: expected=127, actual=128".
+Bug hidden-sensitive concreto; attribuzione al crash 57135939 ancora ipotesi
+per assenza traceback. Nessuna modifica a kernel inviati o nuovo invio.
+Diagnostica: `artifacts/public_baseline/kaggle_v2/recovery_guard_diagnostic.json`.
+
+## Rettifica lettura API — 2026-10-13
+
+La lettura delle colonne score/status del CLI omette `error_description`.
+SDK ufficiale: `57135939` COMPLETE con score vuoto e messaggio di errore non
+gestito nel rerun hidden, quindi non un secondo MRR 0,000. `57109254` invece
+ha score 0.000 ed errore vuoto. Precedenti annotazioni sul secondo zero sono
+superate. Il messaggio generico non fornisce traceback né causa specifica.
+
+## Submission diagnostica autorizzata — 2026-10-13
+
+Utente: "autorizzo". Inviata esattamente la public-control v2 via code submission
+con output `submission.csv`, ID **57143111**, timestamp 12:08:58 UTC.
+Accettata, stato iniziale PENDING, score ancora assente. Tre submission
+residue oggi riportate dal CLI. Nessun nuovo kernel/versione o modifica.
+
+
+## Public four-channel control — risultato 2026-10-13
+
+Kernel privato v2 COMPLETE, CPU offline, asset fissati e sorgente pull identica
+dopo normalizzazione newline. Development 188/876: MRR@25 0,5420906074,
+Hit@1 83/188 (44,15%), Recall@25 141/188 (75%), truth mass-window 188/188.
+Mask 191 alias raw, reference visibili 2.498.313. Le 47 miss sono successive
+al mass retrieval; pruning top80 e ranking non isolati. Overlap pretrained
+non verificato: nessuna previsione di score hidden.
+Rehearsal 400/1213, pool 712.199, reference 2.539.608, 2 FPNet, 8 GBM,
+zero fallback. Runtime completo 6568,87s. Audit locale PASS: ID, ordine,
+validità/unicità scorer, hash CSV e ricalcolo metriche. Quattro righe deduplicate.
+14 test passati. Artifact: `artifacts/public_baseline/kaggle_v2/`.
+Nessuna submission ufficiale; v2 pronta per approvazione finale concordata.
+
+
+## Public four-channel control — preparazione 2026-10-13
+
+Vendored fork storico shiferaxa commit c75b3fe0, Apache-2.0 con NOTICE;
+ranking-loop AST identico. COCONUT v2, FPNet v1, ranker-features v6 verificati
+tramite checksum. Builder e wrapper offline aggiunti, writer senza padding.
+Development fisso 188 identità/876 spettri; sealed non incluso nel payload.
+Kaggle v1 ERROR dopo 10,7 s per wheel cp312; v2 RUNNING con cp313, CPU,
+timeout 10.800 s. Test nuovi 4 passed; compileall/diff-check passati.
+Nessuna accuracy ancora misurata e nessuna submission ufficiale.
+
+## Audit differenziale delle submission — 2026-10-13
+
+Eseguito `scripts/audit_submission_ranking_limits.py` sui rehearsal salvati:
+400 liste e 282 prime scelte SMILES cambiano da C0 a C1; recovery 127 reference,
+5 analoghi/query; errore ppm candidato 100 mediano 13,98 e p90 64,87.
+Fixture wrong-anchor: rank massa 30/evidenza 1 resta 30; fixture equal-mass:
+rank massa 100/evidenza 1 diventa 67 con peso 0,5. Nessuna accuracy hidden
+misurata. Output `artifacts/zero_score_recovery/ranking_limits.json`.
+Confrontate sorgenti pubbliche shiferaxa e gnshx; score solo autodichiarati.
+Test ranking/recovery/metrica: 12 passed in 19,70 s. Nessun job o invio.
+
 ## EXP-018 - Zero-score forensics e coverage C0/C1
 
 **Data:** 2026-10-12

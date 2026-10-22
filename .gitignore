@@ -7,6 +7,7 @@ htmlcov/
 .mypy_cache/
 .ruff_cache/
 .tmp_shiferaxa_c75b3fe0/
+kaggle/public_baseline_bundle/
 
 # Competition data and generated artifacts
 data/*.parquet
@@ -32,3 +33,23 @@ kaggle/validation_bundle/
 kaggle/goal3_bundle/
 kaggle/dataset-metadata.json
 dist/
+kaggle/pubchem_glacier_probe_bundle/
+kaggle/pubchem_glacier_bundle/
+kaggle/pubchem_glacier_forward_bundle/
+kaggle/expanded_glacier_submission_bundle/
+kaggle/expanded_glacier_branch_probe_bundle/
+kaggle/flexon_v89_reproduction_bundle/
+kaggle/pubchem_consensus_submission_bundle/
+kaggle/selective_pubchem_submission_bundle/
+
+# Cluster-local inputs, environments, credentials and execution logs
+.venv-*/
+data/**
+!data/.gitkeep
+logs/
+slurm-*.out
+slurm-*.err
+.env.*
+!*.env.example
+*.pem
+*.key

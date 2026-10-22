@@ -1,5 +1,9 @@
 # Recovery experiment plan
 
+**Rettifica API 2026-10-13:** `57135939` COMPLETE ma con score vuoto e
+error_description di errore non gestito nel rerun hidden. Le sezioni storiche
+che lo chiamano secondo zero sono superate; l'effetto hidden di C1 non misurato.
+
 Data: 2026-10-12  
 Vincoli: niente Goal 6, grandi training, nuovi benchmark Kaggle multi-ora o
 seconda submission senza approvazione
@@ -172,4 +176,3 @@ candidati per riga. La seconda submission autorizzata `57135939` è terminata
 con public 0,000 e rank 3189/3193. Di conseguenza R1 risolve la coverage sul
 proxy ma non supera il gate pubblico. Il passo successivo resta R2/R3 su VM,
 partendo da COCONUT; non eseguire una terza submission né iniziare Goal 6.
-

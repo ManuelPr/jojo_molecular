@@ -1,0 +1,48 @@
+{
+  "upstream_repository": "https://github.com/shiferaxa/casmi26",
+  "upstream_commit": "c75b3fe090c80c8b56572a74d81447a30f9981b9",
+  "upstream_path": "kaggle/fork_base/notebook.py",
+  "upstream_sha256": "65aeab2a4cb3e2ceee3f993915495c2910439913de62e1b26700dcc79f2c351f",
+  "upstream_license": "Apache-2.0",
+  "asset_license": "CC-BY-NC-SA-4.0; RDKit wheel retains upstream terms",
+  "files": {
+    "fp_merged_m1.pt": {
+      "sha256": "261529c823825cbe2028684bbf7214a95a7e631ca9f656336d577c507cce8294",
+      "bytes": 144110255
+    },
+    "fp_single_s2.pt": {
+      "sha256": "c19aa29016ed4d7a67bac38105b8fa5076c696c29eb66a504558c9b2e52b614a",
+      "bytes": 144110255
+    },
+    "rank_train.npz": {
+      "sha256": "41ccec87fba5f8ab255aaf5a723567f25bd766064265c5cc2b83ba2cf15f57f8",
+      "bytes": 9553020
+    },
+    "coco_fp.npy": {
+      "sha256": "5d960d7355e0e10b22f1b2fa97c9fde37e86ddffbea8e562ec1873bdbb0e5f88",
+      "bytes": 378349391
+    },
+    "coco_mass.npy": {
+      "sha256": "2b2af92c3185fa8cd52a4a3e3e7fd7eda4d94e8b9402662a3a4c55ffb13c6e5c",
+      "bytes": 3491240
+    },
+    "coco_meta.pkl": {
+      "sha256": "29eab3083adcb329b52ac7909b4d3ce21f9f95a4008a93356bc526310ab44091",
+      "bytes": 41450156
+    },
+    "fp_bits.npy": {
+      "sha256": "a61e372fc41091bf5c7467e08134081266262665077cb9e2c56d73e4887f3013",
+      "bytes": 55568
+    },
+    "rdkit-2026.3.3-cp313-cp313-manylinux_2_28_x86_64.whl": {
+      "sha256": "9a21f96d92c434c32a4c0d1cc6ebde5f0e57ddbbf24cbfbfd085a3a80e1ceab3",
+      "bytes": 37187145
+    }
+  },
+  "ranking_changes": [],
+  "wrapper_changes": [
+    "fail-fast assets/channels",
+    "development validation masks",
+    "scorer deduplication without padding or added candidates"
+  ]
+}

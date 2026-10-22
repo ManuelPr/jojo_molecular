@@ -1,5 +1,9 @@
 # External candidate coverage analysis
 
+**Rettifica API 2026-10-13:** la recovery `57135939` è un crash del rerun hidden
+con score assente, non un secondo zero. Non misura l'effetto di C1 sul hidden;
+le deduzioni storiche che dipendono da quel presunto score sono superate.
+
 Data: 2026-10-12  
 Stato: C0/C1 misurati; C2/C3/PubChem non ancora materializzati
 
@@ -149,4 +153,3 @@ non misura direttamente il catalog recall hidden, ma dimostra che l'espansione
 C0→C1 non è sufficiente per la competizione. C2 COCONUT diventa quindi il
 prossimo test di coverage più economico; deve essere costruito e validato su VM,
 non selezionato tramite un terzo tentativo leaderboard.
-

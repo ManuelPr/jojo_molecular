@@ -1,0 +1,18 @@
+{
+  "experiment_id": "PG1_pubchem_glacier_paired_development",
+  "query_limit": 16,
+  "pubchem_ppm": 10.0,
+  "pubchem_coarse_limit": 2000,
+  "pubchem_top_k": 50,
+  "forward_top_k": 40,
+  "forward_batch_size": 4,
+  "library_gate": 0.9,
+  "forward_weights": [0.0, 0.25, 0.5, 1.0, 2.0],
+  "calibration_folds": 5,
+  "bootstrap_seed": 26,
+  "asset_sources": {
+    "pubchem": "ahmedberatozer/casmi26-pubchem-tier/1",
+    "glacier_reference": "prvsiyan/casmi26-forward-reference-stack/2",
+    "auxiliary": "mperni/casmi26-forward-aux-wheels/2"
+  }
+}

@@ -6,6 +6,32 @@ Esito Kaggle: `COMPLETE`, Public MRR@25 visualizzato `0.000`
 
 ## Executive finding
 
+**Controllo hidden positivo 2026-10-13:** public four-channel v2, submission
+57143111 COMPLETE, MRR@25 **0,298**, error_description vuoto. Pipeline verificata
+sul hidden; pool e ranking cambiano insieme rispetto a E6, quindi non isolano
+la causa della prima 0.000. La seconda resta un crash senza score.
+
+**Difetto recovery riprodotto 2026-10-13:** il kernel `recovery_kernel.py`
+impone `reference_spectra == 127` dopo un filtro dipendente dal test. Artifact
+rehearsal: 128 reference prima del filtro, un duplicato test escluso, 127 dopo.
+Il medesimo guard estratto via AST passa a 127 e solleva RuntimeError a 128.
+Se il hidden non contiene quel duplicato, il guard fallisce anche con pipeline
+corretta. Senza traceback hidden è una causa plausibile del crash 57135939,
+non una causa confermata né una spiegazione dello score della prima submission.
+Per la futura recovery verificare il conteggio pre-filtro e la consistenza
+`after = before - excluded`, senza fissare il risultato del filtro al placeholder.
+
+**Rettifica API 2026-10-13:** la prima submission ha score `0.000` senza
+errore. La seconda `57135939` ha score assente e un errore non gestito nel
+rerun hidden (`error_description` API), non un secondo score zero. C0 è un
+difetto dimostrato; il crash impedisce di misurare l'effetto hidden di C1.
+Coverage hidden e causa del guasto restano non identificate. Le sezioni
+storiche sotto che descrivono un secondo zero sono superate da questa rettifica.
+Non assegnare confidenza alta alla coverage hidden sulla sola base del proxy.
+Il confronto pubblico e nuovi esempi eseguibili mostrano reference ridotte
+e vincoli di ranking sostanziali. Vedere
+[PUBLIC_PIPELINE_DIFFERENTIAL_AUDIT.md](PUBLIC_PIPELINE_DIFFERENTIAL_AUDIT.md).
+
 La causa più probabile è il **fallimento closed-world del candidate catalog,
 amplificato da una validation Goal 4 selezionata dallo stesso sottoinsieme usato
 per costruire C0**. C0 contiene 49.195 identità canoniche ricavate soltanto
@@ -193,4 +219,3 @@ bug dimostrato sul proxy domain-matched, ma il public set richiede molto
 probabilmente coverage esterna/novelty non contenuta nemmeno in C1, oppure
 esiste un difetto hidden-only che i log consentiti non rendono osservabile.
 Nessuna terza submission viene proposta senza nuova evidenza offline.
-

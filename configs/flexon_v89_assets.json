@@ -1,0 +1,133 @@
+{
+  "source_notebook_sha256": "c43e870c92bd67b2f0c0245c1b4064cfb1c49a1cbc81ffac349bee4708ad55a1",
+  "datasets": [
+    {
+      "source": "prvsiyan/casmi26-ranker-features",
+      "version_number": 6,
+      "dataset_version_id": 19733458,
+      "dataset_id": 12039490,
+      "license": "CC BY-NC-SA 4.0",
+      "pinned_source": "prvsiyan/casmi26-ranker-features/6"
+    },
+    {
+      "source": "prvsiyan/casmi26-fp-models-v2",
+      "version_number": 1,
+      "dataset_version_id": 19722987,
+      "dataset_id": 12054715,
+      "license": "CC BY-NC-SA 4.0",
+      "pinned_source": "prvsiyan/casmi26-fp-models-v2/1"
+    },
+    {
+      "source": "dmitriigluzdov/casmi26-pubchem-popularity-prior",
+      "version_number": 4,
+      "dataset_version_id": 20328562,
+      "dataset_id": 12284543,
+      "license": "Other (specified in description)",
+      "pinned_source": "dmitriigluzdov/casmi26-pubchem-popularity-prior/4"
+    },
+    {
+      "source": "megayak/casmi26-simulated-ranker-rows",
+      "version_number": 4,
+      "dataset_version_id": 19822292,
+      "dataset_id": 12057585,
+      "license": "CC0: Public Domain",
+      "pinned_source": "megayak/casmi26-simulated-ranker-rows/4"
+    },
+    {
+      "source": "ahmedberatozer/casmi26-fpnet-full1",
+      "version_number": 1,
+      "dataset_version_id": 20127474,
+      "dataset_id": 12268894,
+      "license": "Other (specified in description)",
+      "pinned_source": "ahmedberatozer/casmi26-fpnet-full1/1"
+    },
+    {
+      "source": "ahmedberatozer/casmi26-glacier",
+      "version_number": 1,
+      "dataset_version_id": 20090231,
+      "dataset_id": 12248560,
+      "license": "Other (specified in description)",
+      "pinned_source": "ahmedberatozer/casmi26-glacier/1"
+    },
+    {
+      "source": "ahmedberatozer/casmi26-iceberg",
+      "version_number": 1,
+      "dataset_version_id": 20016725,
+      "dataset_id": 12205763,
+      "license": "Other (specified in description)",
+      "pinned_source": "ahmedberatozer/casmi26-iceberg/1"
+    },
+    {
+      "source": "ahmedberatozer/casmi26-pubchem-tier",
+      "version_number": 1,
+      "dataset_version_id": 19916385,
+      "dataset_id": 12151798,
+      "license": "Other (specified in description)",
+      "pinned_source": "ahmedberatozer/casmi26-pubchem-tier/1"
+    },
+    {
+      "source": "ahmedberatozer/casmi26-v2-pool",
+      "version_number": 1,
+      "dataset_version_id": 19845497,
+      "dataset_id": 12114353,
+      "license": "Other (specified in description)",
+      "pinned_source": "ahmedberatozer/casmi26-v2-pool/1"
+    },
+    {
+      "source": "ahmedberatozer/casmi26-v3-models",
+      "version_number": 4,
+      "dataset_version_id": 19915656,
+      "dataset_id": 12122643,
+      "license": "Other (specified in description)",
+      "pinned_source": "ahmedberatozer/casmi26-v3-models/4"
+    },
+    {
+      "source": "ahmedberatozer/casmi26-v4b-models",
+      "version_number": 4,
+      "dataset_version_id": 20021505,
+      "dataset_id": 12183464,
+      "license": "Other (specified in description)",
+      "pinned_source": "ahmedberatozer/casmi26-v4b-models/4"
+    },
+    {
+      "source": "prvsiyan/chebi-lipidmaps-casmi26",
+      "version_number": 1,
+      "dataset_version_id": 19716420,
+      "dataset_id": 12051681,
+      "license": "CC BY-NC-SA 4.0",
+      "pinned_source": "prvsiyan/chebi-lipidmaps-casmi26/1"
+    },
+    {
+      "source": "prvsiyan/coconut-casmi26-candidates",
+      "version_number": 2,
+      "dataset_version_id": 19692718,
+      "dataset_id": 12039473,
+      "license": "CC BY-NC-SA 4.0",
+      "pinned_source": "prvsiyan/coconut-casmi26-candidates/2"
+    },
+    {
+      "source": "hengck23/hengck23-dreams-enveda-casmi26",
+      "version_number": 2,
+      "dataset_version_id": 20201381,
+      "dataset_id": 12305753,
+      "license": "MIT",
+      "pinned_source": "hengck23/hengck23-dreams-enveda-casmi26/2"
+    },
+    {
+      "source": "metric/rdkit-2026-3-3-wheel",
+      "version_number": 1,
+      "dataset_version_id": 19518628,
+      "dataset_id": 11951175,
+      "license": "Unknown",
+      "pinned_source": "metric/rdkit-2026-3-3-wheel/1"
+    },
+    {
+      "source": "eveliaveldrine/rdkit-wheels",
+      "version_number": 3,
+      "dataset_version_id": 20322757,
+      "dataset_id": 12163996,
+      "license": "Apache 2.0",
+      "pinned_source": "eveliaveldrine/rdkit-wheels/3"
+    }
+  ]
+}
