@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "kaggle": {
+      "type": "http",
+      "url": "https://www.kaggle.com/mcp"
+    },
+    "huggingface": {
+      "type": "http",
+      "url": "https://huggingface.co/mcp"
+    }
+  }
+}

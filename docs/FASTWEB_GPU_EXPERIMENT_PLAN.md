@@ -1,5 +1,26 @@
 # Fastweb GPU experiments — decision of 22 October 2026
 
+## Latest completed work — 23 October 2026
+
+F0 official submission57552927 (private notebook version1) accepted on user
+authorization; statusPENDING at09:46 Europe/Rome. G3 completed afterward on
+200 new diagnostic panel queries: fixed-pool F0 joint MRR0.910871,
+five-fold OOF LightGBM0.981667, neural0.978333. No learned model promoted;
+upstream pretrained exclusion remains unverified. Existing job2545/venv/splits
+preserved, no G2/G4. See [results and scientific limits](FASTWEB_G3_RESULTS_2026-10-23.md).
+The execution update below is the earlier16-query snapshot.
+
+## Execution update — 23 October 2026
+
+Starter staging, F0 port and the bounded G1 comparison are complete on the
+existing, user-authorized job2545 (2541 was cancelled by the scheduler).
+16 queries/58 spectra; baseline MRR0.871528, N1 complement0.811111,
+joint0.804762 on a frozen628-candidate pool. These are reference-disjoint
+public-panel diagnostics with pretrained exposure, not unseen-structure MRR.
+No full run, G2/G4 or Kaggle submission. Keep the training venv and frozen splits.
+See [measured results, errors, manifests and runtime estimate](FASTWEB_F0_G1_RESULTS_2026-10-23.md).
+The environment paragraph below preserves the original planning snapshot.
+
 ## Environment status and next action
 
 User-supplied remote report: existing Slurm job **2541**, **1 H100 80 GB**,

@@ -566,3 +566,288 @@ con C1 e ranking E6 congelato. Il public MRR@25 resta 0,000. Il troncamento C0
 fallimento pubblico. Non usare il secondo zero per modificare E6 né effettuare
 un terzo invio. Spostare il prossimo test informativo su VM: C2 COCONUT,
 reference scaling e misure offline; Goal 6 resta escluso.
+
+
+## Verifica pod Fastweb — 2026-10-22
+
+Job esistente 2541: 1 H100 80GB, 8 CPU logiche, RAM job 32 GiB.
+Setup persistente `.venv` completato (Python 3.12.3, torch 2.14.1/CUDA13.0,
+RDKit 2026.3.3). Preflight CUDA forward/backward PASS e pip check PASS.
+Suite: 252 passed, 2 skipped (artifact storico Goal 4 assente), 1 real-data
+deselected, 64,86 s; inclusa integrazione Goal 3 sintetica.
+Dati e pesi CASMI non trovati nella home e nello spazio di gruppo verificato;
+Goal 3 a 2 epoche NON ESEGUITO per assenza train.parquet. Nessuna nuova
+allocazione, submission o modifica degli split congelati. Evidenze persistenti:
+`artifacts/cluster/fastweb-2541-20261022/`. Dettagli e requisiti della validazione
+del ranker finale in [FASTWEB_VERIFICATION_2026-10-22.md](FASTWEB_VERIFICATION_2026-10-22.md).
+
+
+## Starter/F0/G1 — aggiornamento sessione 22 ottobre 2026
+
+2541 cancellato secondo Slurm; uso del 2545 esistente autorizzato in chat.
+Piano starter e manifest preparati; download bloccati da accesso Kaggle assente,
+quota personale non verificata. Preflight con dati e F0/G1 non eseguiti.
+Venv e split conservati; nessuna nuova allocazione o submission.
+Dettagli: [FASTWEB_STARTER_STATUS_2026-10-22.md](FASTWEB_STARTER_STATUS_2026-10-22.md).
+
+
+### Ripresa con accesso Kaggle — 22 ottobre 2026
+
+Starter completo (4.342.989.049 byte); FPNet V5: 55/55 checksum pubblicati
+corrispondenti. Preflight vero train.parquet PASS, 2.539.608 righe e CUDA PASS.
+Sorgente Gu V492 V1 hash esatto recuperato ed estrazione sicura engine/N1A
+preparata. Sottoinsieme simulatori V6 verificato, caricamento CUDA GLACIER e
+ICEBERG PASS in sito isolato (zero predizioni, non G1).
+F0 end-to-end e tabelle evidenze ancora da implementare su asset completi;
+G1/MRR/copertura/throughput non misurati. Quota NFS RPC irraggiungibile.
+Report e manifest: [FASTWEB_STARTER_STATUS_2026-10-22.md](FASTWEB_STARTER_STATUS_2026-10-22.md).
+
+
+## F0/G1 completati sul pilot — 23 ottobre 2026
+
+421 asset aggiuntivi (24.853.073.596 byte) fissati e hashati; venv/split
+preservati. F0 su job2545, 16 query/58 spettri; 3.490 reference training
+e 2 esterne escluse, candidati mantenuti. Inferenze CUDA senza fallimenti;
+recupero analisi CPU byte-identico. MRR diagnostico: baseline 0,871528,
+N1 complement 0,811111, joint 0,804762. Copertura16/16; forward8/16→12/16.
+Nessuna promozione: esposizione pretrained non esclusa e proxy in regressione.
+Stima conservativa H100200 query≈2,69h; nessuna run completa/G2/G4/submission.
+Report: [FASTWEB_F0_G1_RESULTS_2026-10-23.md](FASTWEB_F0_G1_RESULTS_2026-10-23.md).
+
+
+## F0 submission authorized and G3 research started — 2026-10-23
+
+User explicitly requested the F0 submission a priori and useful computation in
+parallel. Notebook `mperni/casmi26-f0-gu-v492-research-control` **version 1** was
+pushed privately with unchanged prediction cells and research mounts
+FPNet5/panel10/assets6/prior10/knowledge9. This does not certify the historical
+0.464 input mounts. Official best score checked via API remains 0.440.
+Kaggle rejected early submission with HTTP400: notebook still running/output
+unavailable; no submission was created by those requests. A single-submission
+finalizer is running; inspect its state before any further submission command:
+`artifacts/kaggle/f0-gu-v1/finalizer-state.json`.
+
+Research: 200 new panel queries/957 spectra, disjoint from pilot16; excluded
+47,792 reference spectra, retaining 2,491,816. The panel has 234 available NP
+queries; 16 panel entries lack NP acquisitions, including two without the
+training crosswalk. No official-scorer mismatch in the 234 available identities.
+Eligibility and crosswalk exclusions are explicit artifacts. Existing frozen
+split files are unchanged. Full1/A+B/forward pretrained exposure is still not
+certified, so this is diagnostic, not strict unseen-structure evaluation.
+
+New G3 adapter compares fixed heuristics, five identity-grouped OOF LambdaRank
+models and a small CUDA listwise neural challenger on identical candidate pools.
+No hyperparameter search or automatic model promotion; no G2/G4. Eight focused
+tests and a real CUDA smoke passed. Pilot16 OOF results are software diagnostics,
+not grounds for changing the Kaggle control. Research orchestration is detached
+inside existing job2545, 3h F0 cap, 26GiB guard, then <=10min fusion segment.
+Status: `artifacts/cluster/g3-dev200-2545/run-manifest.json`.
+
+Two startup failures are preserved: resolving the venv symlink selected system
+Python (fixed before inference); then the RAM guard stopped accumulated file
+cache (no OOM). POSIX_FADV_DONTNEED on our own research files released stale
+cache, reducing current cgroup usage from22.98GB to1.80GB without changing any
+file bytes; the same26GiB guard is retained on restart. No new allocation or
+venv changes. Details: `FASTWEB_F0_SUBMISSION_G3_2026-10-23.md`.
+
+
+### Official F0 submitted; G3 recovery — 23 October 2026
+
+F0 submission **57552927**, notebook version1, accepted by Kaggle at
+**09:09:58 Europe/Rome**; API status **PENDING**, no public score yet.
+The visible notebook completed12 queries,400 CSV rows with388 placeholder
+answers,0 main errors; ICEBERG and GLACIER CUDA stages both OK. Visible notebook
+wall3200.93s (53m21s), including setup/analysis; not a full400 inference benchmark.
+The finalizer hit429 while listing outputs in20-file pages; recovered with the
+API maximum500-page size and reused audited local downloads before submitting.
+Exactly one accepted F0 submission. Receipt/state under `artifacts/kaggle/f0-gu-v1/`.
+
+The200-query run reached ICEBERG:178 covered queries,14,932 scored candidates,
+40,743 predictions,zero prediction failures,319.05s. Its26GiB guard interrupted
+GLACIER at3169.56s with peak cgroup28,183,703,552 bytes; no OOM. Retrieval/main/
+PubChem/ICE are preserved. A lightweight recovery parent now loads only cached
+candidate lists and ICE results, repeats interrupted GLACIER/N1, then exports
+and trains G3. This removes the large reference index from simulator parent RAM.
+Old stopped orchestration parent resumed after submission and exited on the
+recorded guard failure; sequencing gate is released. Do not restart that old
+full pipeline. Active successor: `scripts/cluster/run_g3_recovery.py`.
+Live state: `artifacts/cluster/g3-dev200-2545/recovery-state.json`;
+logs/resources in `recovery-profile/`, then `fusion-profile/`; source and cached
+input hashes in `forward-recovery-manifest.json`. Same existingjob2545 andvenv;
+no G2/G4. The official F0 recipe remains independent of this research.
+
+
+## Completed F0 submission and G3 — 23 October 2026, 09:46 Europe/Rome
+
+Official F0 submission **57552927**, notebook `mperni/casmi26-f0-gu-v492-research-control`
+version1, is **PENDING**, no public score. Do not submit it again. Best measured
+official score remains0.440. Research successor `recovery-state.json` is now
+**complete**, returncodes0 for recovery and training; the older monolithic
+`run-manifest.json` correctly records its RAM-guard failure.
+
+200-query/957-spectrum diagnostics completed, fixed7,729 candidates and36,810
+pairs, truth coverage200/200. Actual F0 joint MRR0.910871; five-fold OOF
+LightGBM0.981667 (delta+0.070795, diagnostic paired95%[+0.042879,+0.101137],
+24 improvements/1 regression); neural0.978333. All200 final-F0 RR values match
+the joint arm; learned metrics independently checked from OOF scores. Neural
+has no demonstrated advantage over LightGBM. No G3 model promoted/submitted:
+public-panel/upstream pretrained exposure remains unverified, no sealed test.
+
+80,001 successful forward predictions, zero failures. Lightweight forward
+recovery1593.34s, peak sampled RAM10.52GiB; G3 fit3.84s (profile8.10s), CUDA
+challenger and all checkpoints saved. Ten focused tests pass, frozen split
+hashes unchanged, no venv/new allocation/G2/G4. No active research training
+remains. F0 official hidden evaluation is still pending on Kaggle.
+
+Results: `FASTWEB_G3_RESULTS_2026-10-23.md`. Manifest:
+`artifacts/cluster/g3-dev200-2545/experiment-manifest.json`.
+Next useful work: audit pretrained exclusions and test the fixed learned fusion
+on an independent excluded cohort before promotion; avoid further tuning on
+this diagnostic panel. Follow the existing official submission, without a new
+submission mutation.
+
+
+## G3 submission requested and prepared — 23 October 2026
+
+User explicitly prefers to test G3 on Kaggle now instead of further local
+research. This supersedes the earlier local promotion gate for this
+experimental submission. Prepared a separate private notebook
+`mperni/casmi26-f0-g3-lightgbm-experiment`, retaining F0 control57552927.
+Deployment averages the five saved LightGBM fold scores; no refit, no neural
+model. Captures observable numeric main-channel evidence and protonated GL
+scores, then replaces final ordering on the same40-candidate pool.
+
+Technical checks only: exact feature parity on7,729 cached rows, fold0 prediction
+parity with max error0.0; syntax and diff checks pass. Private upload package:
+13 files,655,621 bytes, five model text files, five numeric preprocessing files,
+inference code and manifests. Contains no spectra/validation labels/credentials.
+Bundle and finalizer are ready. Transfer inventory:
+`artifacts/kaggle/g3-lightgbm-v1/transfer-review.json`.
+
+**Upload has NOT occurred and G3 has NOT been submitted.** Automatic approval
+review rejected the dataset upload twice, including after payload inspection,
+because it requires trusted explicit user consent to export these nonpublic
+models to Kaggle. Do not bypass via embedding, another tool or indirect upload.
+Ask consent specifically for this private13-file transfer and subsequent G3
+submission. After consent, create the private dataset, push the prepared bundle,
+record the actual returned notebook version and start
+`scripts/finalize_fastweb_g3_submission.py --version VERSION` once. F0 state and
+experiment results remain unchanged; current F0 API still PENDING.
+
+
+## G3 private upload explicitly approved and running — 23 October 2026
+
+User replied **SI** to the specific request to privately upload the13 G3 files
+(655,621 bytes: five LightGBM models, five preprocessing files, inference code
+and manifests) to Kaggle accountmperni and submit the new experiment. The same
+payload hashes were checked before transfer. Prior auto-review export block is
+resolved by this explicit consent; do not ask again for this authorized task.
+
+Private dataset `mperni/casmi26-g3-fusion-research-models` **version1** is READY;
+remote personal-dataset API confirms `is_private=True`, all12 data files present
+(metadata is dataset configuration). CLI returned a JSON decode error after
+creation; reconciled by read-only status/file listing, no duplicate upload.
+Notebook `mperni/casmi26-f0-g3-lightgbm-experiment` **version1** successfully
+pushed and RUNNING. It retains the F0 recipe/mounts, captures numeric evidence,
+then applies the mean of five saved LightGBM fold scores to the same40-candidate
+pool. This deployment ensemble has no measured official score yet.
+
+Detached single-submit finalizer is active:
+`scripts/finalize_fastweb_g3_submission.py --version 1`.
+Live state/log/PID: `artifacts/kaggle/g3-lightgbm-v1/`.
+It waits for completion, validates G3 receipt/model hash/CSV, submits once and
+records the returned official ID. **Do not launch a duplicate finalizer or
+manual submission.** It has not submitted while status is waiting_for_notebook.
+No new local model experiment, refit, venv or allocation. User preference:
+for these experiments prefer a Kaggle submission with essential technical
+checks over lengthy further local validation. Keep scientific local/official
+results distinct and F0 control57552927 intact.
+
+
+## G3 official submission accepted — 23 October 2026, 10:37 Europe/Rome
+
+**G3 submission57554882 accepted**, private notebook
+`mperni/casmi26-f0-g3-lightgbm-experiment` version1. User explicitly approved
+the private13-file transfer and this experimental submission with SI. Model
+datasetV1 is private and ready. Single-submit finalizer completed successfully;
+**do not submit again or restart it**.
+
+Visible smoke:400 CSV rows,12 processed queries,zero main errors. G3 reordered
+all12 processed lists; overlay feature assembly/inference/audit took16.707s.
+Model-manifest hash matches the approved package. The same-run F0 control CSV
+hash equals the earlier F0 notebook output hash exactly, confirming the visible
+control bytes are unchanged before applying G3. Output SHA256:
+`9360cccd476a53bab0ac066dd60ffe348ab5f5464e44f8bdb38d3dd838da59dc`.
+
+Official API currently reports **PENDING for both F0(57552927) and G3(57554882)**,
+no public scores yet. No additional local research or retraining was performed.
+Package/bundle/receipt/state hashes are in
+`artifacts/kaggle/g3-lightgbm-v1/experiment-manifest.json`.
+Next action: read official results when available and compare the two recipes;
+no further submission is required to complete this authorized experiment.
+
+
+## Official results — 23 October 2026
+
+Authenticated Kaggle API confirms both submissions COMPLETE:
+
+| Recipe | Submission | Public MRR@25 |
+| --- | --- | --- |
+| F0 fixed research control | 57552927 | 0.464 |
+| F0 + G3 five-fold LightGBM mean | 57554882 | 0.388 |
+
+G3 regresses by 0.076 absolute against F0. F0 matches the published 0.464
+numerically and improves our previous 0.440 by 0.024; this does not certify
+that historical asset versions or hidden predictions are identical.
+
+The G3 local OOF 0.981667 on the 200-query public diagnostic panel did not
+translate to the hidden public leaderboard. The panel is not a reliable
+promotion criterion for this fusion. Upstream pretrained exposure remains
+unverified; domain/feature shift and replacing F0 ranking protections are
+hypotheses, not established causes. Deployment averages five models whereas
+OOF uses the one excluded-fold model per query, another unisolated difference.
+
+Decision: retain F0 as the competitive baseline; do not promote this G3 fusion.
+Both authorized submissions are finished. No new training or submission was
+started for this result check. Next research should diagnose the validation
+and deployment mismatch before selecting a conservative fusion variant.
+
+Fresh official API snapshots: `artifacts/kaggle/f0-gu-v1/official-results-2026-10-23.json`
+and `artifacts/kaggle/g3-lightgbm-v1/official-results-2026-10-23.json`.
+Earlier PENDING entries/manifests are historical snapshots, superseded by these
+results; their recorded file hashes have been preserved.
+
+
+## Conservative G3 tail experiment launched — 23 October 2026
+
+User authorized “bho, falla”. New Kaggle notebook
+`mperni/casmi26-f0-g3-conservative-tail` version1 pushed; detached finalizer
+waits and will submit once after checks. Exact F0 top1 and top25 candidate set
+are preserved; G3 only reorders positions2–25. No training or new model upload.
+No official score yet. Do not duplicate submission/finalizer.
+Details: [FASTWEB_G3_CONSERVATIVE_2026-10-23.md](FASTWEB_G3_CONSERVATIVE_2026-10-23.md).
+Live state: `artifacts/kaggle/g3-conservative-v1/submission-state.json`.
+
+
+## Conservative G3 official result — 23 October 2026
+
+Authenticated Kaggle API confirms submission57563808 COMPLETE, public MRR@25
+0.451. F0 control57552927 remains0.464; unrestricted G3 scored0.388.
+Conservative tail ordering improves0.063 over unrestricted G3 but regresses
+0.013 against F0. Preserve F0 as baseline; do not promote either G3 recipe.
+The scored conservative recipe preserves F0 top1 and candidate set, so tail
+ordering provides a net negative contribution on the public score. The
+comparison with unrestricted G3 also changes pool membership (exact F0 top25
+versus unrestricted fusion pool), so it does not isolate top1 protection alone.
+No new training or submission launched during this check.
+Snapshot: `artifacts/kaggle/g3-conservative-v1/official-results.json`.
+
+
+## 2026-10-28 16:11 — J5: identità atlas e campionamento (Codex)
+
+Normalizzare gli SMILES atlas con i default della metrica prima di deduplicare; 11.040 spettri reali cambiano key rispetto all’header. Escludere le identità selezionate non idempotenti al secondo passaggio RDKit (3 osservate), senza modificare la metrica. Consegnare inizialmente solo positivi atlas assenti da tutto il train, con esclusioni e hash espliciti. Il cap per formula serve al training e non definisce la libreria completa di scoring. Dettagli: [J5](J5_atlas_data_2026-10-28.md).
+
+
+## 2026-10-28 22:23 — J5c: separare catalogo ranking e campione training
+
+Misurate19 truth perse usando il campione400/formula per ranking. Prodotto catalogo completo15formule (9.740 identità) con cap losszero. Non usare external_v3 (train escluso) come libreria generale d’inferenza; mantenere candidati senza atlas nel pool. NON promuovere RRF atlas–JM: delta piccolo con IC95 comprendentezero e coorte esposta al training. Report [J5c](J5c_atlas_ranking_2026-10-28.md).

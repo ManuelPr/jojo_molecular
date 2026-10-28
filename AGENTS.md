@@ -14,3 +14,8 @@ Keep the implementation, experiments, and
 documentation consistent with the master plan.
 
 Track progress and decisions across sessions.
+
+Coordinate with the other agent (Claude Code / Codex) through
+docs/COLLAB_BOARD.md: read it before starting, claim tasks there,
+book GPUs there, and append messages instead of rewriting.
+The current experiment plan is docs/EXPERIMENT_PLAN_2026-10-28.md.

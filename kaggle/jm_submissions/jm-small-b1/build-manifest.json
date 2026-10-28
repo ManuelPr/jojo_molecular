@@ -1,0 +1,11 @@
+{
+  "run": "artifacts/jm/small_b1_ours",
+  "pins": {
+    "features.py": "a97ad9b3ab3711517864d56e497e1672cb29bb05683c72b52db9f9b0a17b1455",
+    "model.py": "67825ccfd6ede0bc22d092e7cba012756c66b62430c378ecdf71dd9989a77a16",
+    "config.json": "f3615c3004f2f590a0362e3a33747d9ee982f601a6c3505b6893930b808ca293",
+    "final_model.pt": "de8db2e2f96c22bf49fc2dab5fe741e5e7c8f7f6e9a7ae47946469c2baff10d0"
+  },
+  "overrides": [],
+  "notebook_sha256": "f26392cda51e24366c8802ad69472f8bcc5169c50735b8b4db0d699873a34a9d"
+}

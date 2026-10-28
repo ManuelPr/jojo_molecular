@@ -11,6 +11,15 @@ The user already has a GPU-backed VS Code allocation. Use that allocation's
 terminal for setup and the first preflight. This handoff does not submit a
 cluster job or a Kaggle competition submission automatically.
 
+Verification on the existing job 2541 is recorded in
+[FASTWEB_VERIFICATION_2026-10-22.md](FASTWEB_VERIFICATION_2026-10-22.md).
+The assigned H100 passed an actual CUDA forward/backward probe. The job has
+8 logical CPUs and a 32 GiB cgroup RAM limit; host-wide resources are larger.
+Python 3.12.3 lacks ensurepip on this pod: the persistent `.venv` was created
+using virtualenv before rerunning setup successfully. CUDA access from the
+Codex filesystem sandbox is unavailable; use the allocated terminal or an
+approved execution outside that sandbox. Training data was not found.
+
 ## 1. Clone and choose Python
 
 ```bash

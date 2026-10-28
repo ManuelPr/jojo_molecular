@@ -1,0 +1,17 @@
+{
+  "id": "mperni/casmi26-jm-train-base-s4",
+  "title": "casmi26-jm-train-base-s4",
+  "code_file": "casmi26-jm-train-base-s4.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": false,
+  "machine_shape": "NvidiaTeslaT4",
+  "dataset_sources": [
+    "mperni/casmi26-jm-code",
+    "mperni/casmi26-jm-cache-v1"
+  ],
+  "competition_sources": [],
+  "kernel_sources": []
+}

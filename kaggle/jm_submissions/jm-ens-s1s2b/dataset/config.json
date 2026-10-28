@@ -1,0 +1,31 @@
+{
+  "fp_bits": 2048,
+  "max_peaks": 96,
+  "min_peaks": 3,
+  "temperature": 0.1,
+  "fp_score_weight": 2.0,
+  "members": [
+    {
+      "width": 512,
+      "heads": 8,
+      "layers": 8,
+      "embedding": 256,
+      "dropout": 0.1,
+      "mol_hidden": 1024,
+      "mol_layers": 2
+    },
+    {
+      "width": 512,
+      "heads": 8,
+      "layers": 8,
+      "embedding": 256,
+      "dropout": 0.1,
+      "mol_hidden": 1024,
+      "mol_layers": 2
+    }
+  ],
+  "member_runs": [
+    "artifacts/jm/base_s1_local_snap12k",
+    "artifacts/jm/base_s2b_local"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "run": "artifacts/jm/ens_base_s1s2b",
+  "pins": {
+    "features.py": "a97ad9b3ab3711517864d56e497e1672cb29bb05683c72b52db9f9b0a17b1455",
+    "model.py": "67825ccfd6ede0bc22d092e7cba012756c66b62430c378ecdf71dd9989a77a16",
+    "config.json": "02bb258913f44d52706d02e3142a7d35c9f649cc86e2490c71ea599aced4dd55",
+    "final_model.pt": "c2bad0589fcc63cd541cbc29734b38399206475afefcdb1f9869ba940618f83d"
+  },
+  "overrides": [],
+  "notebook_sha256": "9b9a7be1b7c1189334b50a9183bb5be9135ae6fe781cbffdbf30b22244f14abf"
+}

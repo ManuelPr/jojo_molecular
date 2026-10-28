@@ -1,0 +1,11 @@
+{
+  "run": "artifacts/jm/base_s1_local_snap12k",
+  "pins": {
+    "features.py": "a97ad9b3ab3711517864d56e497e1672cb29bb05683c72b52db9f9b0a17b1455",
+    "model.py": "67825ccfd6ede0bc22d092e7cba012756c66b62430c378ecdf71dd9989a77a16",
+    "config.json": "9e3003749e24cf51d53374606d0d55edfaed6397b49b574ca3d90150c5df7b59",
+    "final_model.pt": "e17250fd87c7cb4c1eea9e25ea962b6107420e393f821b51f84baca17c3e8330"
+  },
+  "overrides": [],
+  "notebook_sha256": "b4c9fcc4b9c07d7f64265d3edc03019b9f46e16d7276c67447d9c8a5d3476768"
+}

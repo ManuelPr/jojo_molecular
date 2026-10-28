@@ -41,6 +41,8 @@ kaggle/expanded_glacier_branch_probe_bundle/
 kaggle/flexon_v89_reproduction_bundle/
 kaggle/pubchem_consensus_submission_bundle/
 kaggle/selective_pubchem_submission_bundle/
+kaggle/fastweb_f0_bundle/
+kaggle/fastweb_g3_bundle/
 
 # Cluster-local inputs, environments, credentials and execution logs
 .venv-*/
@@ -53,3 +55,5 @@ slurm-*.err
 !*.env.example
 *.pem
 *.key
+
+kaggle/fastweb_g3_conservative_bundle/
