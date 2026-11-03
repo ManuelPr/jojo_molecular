@@ -43,6 +43,12 @@ def patch(i, source, inp, out, contract_path, catalog_contract=None):
         old = 'EngineCfg(generate=True)'
         assert source.count(old) >= 1
         source = source.replace(old, f"EngineCfg(generate=True, {os.environ['K2_GEN_CFG']})")
+    if i == 39 and os.environ.get('K2_GENFIX'):
+        # Genfix: base Engine-1 lists kept, wide-generation structures inserted (scripts/genfix_patch.py, same code as Kaggle).
+        assert not os.environ.get('K2_GEN_CFG'), 'K2_GENFIX keeps the base engine config'
+        sys.path.insert(0, str(ROOT/'scripts'))
+        from genfix_patch import patch_cell39
+        source = patch_cell39(source, os.environ['K2_GENFIX'])
     if i == 34 and os.environ.get('K2_PUBCHEM_EXCLUDE'):
         # K7 type-3 bench: the PubChem channel must not see the withheld truths. Append a wrapper to probe_core2.py that
         # drops window SMILES whose exact string, raw InChIKey14 or metric identity belongs to the withheld set.
