@@ -57,3 +57,35 @@ def patch_cell39(source, gen_cfg):
     source = source.replace(tail, tail + "print('GENFIX', GF_STATS, flush=True)\n"
                             "assert GF_STATS['calls'] > 0 and GF_STATS['errors'] <= max(2, GF_STATS['calls'] // 50), GF_STATS\n")
     return pre + source
+
+
+def patch_cell39_gated(source, gate, gen_cfg):
+    """Genfix only for queries the G3b early gate selects (scripts/unseen/g3b_early_gate.py, artifacts/G3/gate_early_v2.json).
+    gate = dict(mean, scale, coef, intercept, threshold) over [library_max, n_union, n_pubchem, n_engine2], all known in cell
+    39: lib_max from V.run, n_union = |base Engine-1 SMILES u Engine-2 SMILES u PubChem SMILES|, list sizes of ENG / PC."""
+    out = patch_cell39(source, gen_cfg)
+    call = "            _gf_insert(spectra, target, smis, keys, scs, forms, pids_)\n"
+    assert out.count(call) == 1, 'GENFIX gated: insertion call anchor'
+    g = {k: gate[k] for k in ('mean', 'scale', 'coef', 'intercept', 'threshold')}
+    pre = (
+        "import math as _gf_math\n"
+        "_GF_GATE = " + repr(g) + "\n"
+        "GF_STATS['gated'] = 0\n"
+        "def _gf_gate(mid, lib_max, smis):\n"
+        "    _e = globals().get('ENG', {}); _p = globals().get('PC', {})\n"
+        "    _es = list((_e.get(mid) or _e.get(str(mid)) or {}).get('smiles', []))\n"
+        "    _ps = list((_p.get(mid) or _p.get(str(mid)) or {}).get('pc', []))\n"
+        "    x = [float(lib_max), float(len(set(smis) | set(_es) | set(_ps))), float(len(_ps)), float(len(_es))]\n"
+        "    z = sum(c * (v - m) / s for c, v, m, s in zip(_GF_GATE['coef'], x, _GF_GATE['mean'], _GF_GATE['scale']))\n"
+        "    fire = 1.0 / (1.0 + _gf_math.exp(-(z + _GF_GATE['intercept']))) > _GF_GATE['threshold']\n"
+        "    GF_STATS['gated'] += int(fire)\n"
+        "    return fire\n"
+    )
+    out = out.replace(call, "            if _gf_gate(mid, lib_max, smis):\n    " + call)
+    old_assert = "assert GF_STATS['calls'] > 0 and"
+    assert out.count(old_assert) == 1, 'GENFIX gated: stats assert anchor'
+    out = out.replace(old_assert, "assert 'gated' in GF_STATS and")
+    out = out.replace("print('GENFIX', GF_STATS, flush=True)", "print('GENFIX GATED', GF_STATS, flush=True)")
+    i = out.index("GF_STATS = dict(")
+    j = out.index("\n", i) + 1
+    return out[:j] + pre + out[j:]

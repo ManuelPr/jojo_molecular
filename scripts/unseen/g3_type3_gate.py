@@ -121,6 +121,8 @@ def main():
         return res
 
     rep = {'coef': coef, 'thresholds_by_t1thin_cal_fire': thresholds,
+           'model': dict(features=FEATS, mean=model[0].mean_.tolist(), scale=model[0].scale_.tolist(),
+                         coef=model[-1].coef_[0].tolist(), intercept=float(model[-1].intercept_[0])),
            'auc_k6_cal': float(__import__('sklearn.metrics', fromlist=['roc_auc_score']).roc_auc_score(y, model.predict_proba(X)[:, 1]))}
     ver = [q for q in kq if half(q) == 'ver']
     from sklearn.metrics import roc_auc_score

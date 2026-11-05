@@ -69,6 +69,8 @@ def main():
     p.add_argument('--out', default=str(ROOT/'kaggle/c477_genwide_bundle'))
     p.add_argument('--slug', default='casmi26-c477-genwide')
     p.add_argument('--mode', choices=['genwide', 'genfix'], default='genwide')
+    p.add_argument('--gate', default=None, help='G3b gate json (artifacts/G3/gate_early_v2.json): genfix only for gated queries')
+    p.add_argument('--fire', default='0.05', help='fire-rate key of thresholds_by_t1thin_cal_fire')
     a = p.parse_args()
     src, out = Path(a.src), Path(a.out)
     nbs = sorted(src.glob('*.ipynb'))
@@ -82,6 +84,16 @@ def main():
         psrc = (ROOT/'scripts/genfix_patch.py').read_text()
         fn = psrc[psrc.index('def patch_cell39'):]
         hook = GENFIX_HOOK.replace('__PATCH_SRC__', repr(fn)).replace('__GEN_CFG_REPR__', repr(GEN_CFG))
+        if a.gate:
+            r = json.loads(Path(a.gate).read_text())
+            gate = dict(r['model'], threshold=r['thresholds_by_t1thin_cal_fire'][a.fire])
+            assert gate['features'] == ['library_max', 'n_union', 'n_pubchem', 'n_engine2'], gate['features']
+            old_call = "_src=patch_cell39(_src, "
+            old_run = "    assert scope.get('GF_STATS', {}).get('calls', 0) > 0, 'GENFIX: cell 39 did not run the insertion'\\n"
+            assert hook.count(old_call) == 1 and hook.count(old_run) == 1, 'gated hook anchors'
+            hook = hook.replace(old_call, "_src=patch_cell39_gated(_src, " + repr(gate) + ", ")
+            hook = hook.replace(old_run, "    assert 'gated' in scope.get('GF_STATS', {}), 'GENFIX: gated cell 39 did not run'\\n")
+            hook = hook.replace("print('GENFIX cell 39 patched'", "print('GENFIX GATED cell 39 patched'")
     nb['cells'][hits[0]]['source'] = (ANCHOR + hook + c[len(ANCHOR):]).splitlines(keepends=True)
     for c in nb['cells']:
         if c['cell_type'] == 'code':
