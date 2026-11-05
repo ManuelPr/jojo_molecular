@@ -35,7 +35,12 @@ from g2 import Generator  # noqa: E402
 
 PUB = ROOT/'data/fastweb/sanpier-casmi-spectrum-model-v1/casmi_spectrum_model_v1'
 OWN = ROOT/'artifacts/X2/own_w384_s7'
-BENCH = {'K6': 'r2_k6_s?', 'K7': 'r_k7v2_s?', 'T1': 'r_t1_np250', 'T1thin': 'r_t1thin_base'}
+BENCH = {'K6': 'r2_k6_s?', 'K7': 'r_k7v2_s?', 'T1': 'r_t1_np250', 'T1thin': 'r_t1thin_base',
+         # test-domain transfer benches (report only, not in the selection mix): 128 enveda NP examples with ALL their
+         # reference spectra removed; T2np keeps the catalogs (type 2), T3np withholds them (type-3 proxy)
+         'T2np': 'run_cohort_v2_base', 'T3np': 'r3_proxy3_v4_cohort_v2_reuse'}
+COHORT_V2 = ROOT/'artifacts/K2/cohort_v2/competition/contract.json'
+G2_KEYS = ROOT/'artifacts/G2/data_v1/structures.parquet'
 GRID = {f'k{k}_p{p}': (k, p) for k in (1, 3, 5) for p in (2, 5)}
 MIX = {'T1thin': 0.35, 'K6t2': 0.30, 'K6t3': 0.35}
 
@@ -152,9 +157,14 @@ def main():
         k7.update(json.loads(Path(info['contract']).read_text())['truth'])
     mk = metric_keys(list(t1_smiles.dropna()) + [s for d in [lists] + list(variants.values()) for L in d.values() for x in L.values() for s in x])
     t1_truth = {q: mk.get(s) for q, s in t1_smiles.items()}
-    truths = {'K6': k6.truth_metric.to_dict(), 'K7': k7, 'T1': t1_truth, 'T1thin': t1_truth}
+    cv2 = json.loads(COHORT_V2.read_text())['truth']
+    truths = {'K6': k6.truth_metric.to_dict(), 'K7': k7, 'T1': t1_truth, 'T1thin': t1_truth, 'T2np': cv2, 'T3np': cv2}
+    leak = set(pd.read_parquet(G2_KEYS, columns=['key']).key)   # truths the generator saw in training (raw/metric mismatch)
     groups = {'K6t2': ('K6', list(k6.index[k6.type_metric == 2])), 'K6t3': ('K6', list(k6.index[k6.type_metric == 3])),
-              'K7': ('K7', list(k7)), 'T1': ('T1', list(t1.index)), 'T1thin': ('T1thin', list(t1.index))}
+              'K7': ('K7', list(k7)), 'T1': ('T1', list(t1.index)), 'T1thin': ('T1thin', list(t1.index)),
+              'T2np': ('T2np', list(cv2)), 'T3np': ('T3np', list(cv2))}
+    groups = {g: (b, [q for q in qs if truths[b].get(q) not in leak or g in ('T1', 'T1thin', 'K6t2')]) for g, (b, qs) in groups.items()}
+    print('queries per group after generator-leak filter', {g: len(qs) for g, (b, qs) in groups.items()}, flush=True)
 
     def evaluate(v, split):
         return {g: compare(lists[b], v[b], truths[b], mk, [q for q in qs if q in lists[b] and (split == 'all' or k11.half(q) == split)])
