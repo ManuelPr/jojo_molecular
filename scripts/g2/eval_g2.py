@@ -79,6 +79,9 @@ def main():
     ap.add_argument('--n', type=int, default=256)
     ap.add_argument('--fp_arm', default='bgv4')
     ap.add_argument('--type2_sample', type=int, default=150)
+    ap.add_argument('--fp_bundle', default=None)
+    ap.add_argument('--tag', default='')
+    ap.add_argument('--temperature', type=float, default=1.0)
     a = ap.parse_args()
     dev = f'cuda:{a.gpu}'
     gen = Generator(a.run, dev)
@@ -106,7 +109,7 @@ def main():
             f = c[(c.arm == 'sanpier') & (c.stage == 'final_c477')].sort_values(['query_id', 'rank'])
             finals.update({q: g for q, g in f.groupby('query_id')})
     spectra = pd.concat(spectra)
-    fps = fp_predictions(BUNDLES/a.fp_arm, spectra, dev)
+    fps = fp_predictions(Path(a.fp_bundle) if a.fp_bundle else BUNDLES/a.fp_arm, spectra, dev)
     print('queries', len(queries), 'with fp', len(fps), flush=True)
     rows = []
     for i, (q, info) in enumerate(queries.items()):
@@ -126,7 +129,7 @@ def main():
             counts, extra = formula_counts(formula, gen.elements)
             if extra:
                 continue
-            samples = gen.sample(fps[q], counts, n=a.n)
+            samples = gen.sample(fps[q], counts, n=a.n, temperature=a.temperature)
             cnt = Counter()
             for s in samples:
                 if s and mol_formula(s) == formula:
@@ -141,7 +144,7 @@ def main():
         if (i + 1) % 50 == 0:
             print(i + 1, 'queries', flush=True)
     d = pd.DataFrame(rows)
-    d.to_parquet(Path(a.run)/'eval_recall.parquet', index=False)
+    d.to_parquet(Path(a.run)/f'eval_recall{a.tag}.parquet', index=False)
     rep = {}
     for (b, t, src), g in d.groupby(['bench', 'type', 'source']):
         rr = g.truth_rank
@@ -151,7 +154,7 @@ def main():
                                          recall_10=float((rr <= 10).mean()),
                                          new_vs_base=int((rr.notna() & ~g.truth_in_base).sum()),
                                          mrr_gen=float((1 / rr).fillna(0).mean()))
-    (Path(a.run)/'eval_recall.json').write_text(json.dumps(rep, indent=1))
+    (Path(a.run)/f'eval_recall{a.tag}.json').write_text(json.dumps(rep, indent=1))
     print(json.dumps(rep, indent=1))
 
 
