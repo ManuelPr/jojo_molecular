@@ -99,7 +99,12 @@ def main():
     print('gated queries', {b: int(fire[b].sum()) for b in BENCH}, flush=True)
     sp = spectra[spectra.molecule_id.isin(gated)]
     fps = fp_predictions(OWN, sp, dev)
-    extra = pd.read_parquet(a.extra) if a.extra else None
+    extra_by_q = {}
+    if a.extra:   # G1 candidates: already deduplicated by official metric identity (metric_key); keep their own order
+        ex_ = pd.read_parquet(a.extra, columns=['query_id', 'smiles', 'metric_key', 'generated_rank'])
+        ex_ = ex_.sort_values(['query_id', 'generated_rank']).groupby('query_id').head(a.topm)
+        extra_by_q = {str(q): list(zip(g.smiles, g.metric_key)) for q, g in ex_.groupby('query_id')}
+    extra = extra_by_q if a.extra else None
     rows = []
     allL = {q: L for b in BENCH for q, L in lists[b].items()}
     for i, q in enumerate(sorted(gated)):
@@ -107,7 +112,7 @@ def main():
         f = mol_formula(L[0])
         have = {canonicalize_smiles_to_ik14(s) for s in L}
         cnt, rep = Counter(), {}
-        if f and q in fps:
+        if f and q in fps and a.n > 0:
             counts, ex = formula_counts(f, gen.elements)
             if not ex:
                 for s in gen.sample(fps[q], counts, n=a.n):
@@ -116,8 +121,7 @@ def main():
                         if k and k not in have:
                             cnt[k] += 1; rep.setdefault(k, s)
         if extra is not None:
-            for s in extra[extra.query_id.astype(str) == q].smiles:
-                k = canonicalize_smiles_to_ik14(s)
+            for s, k in extra.get(q, []):
                 if k and k not in have and k not in rep:
                     cnt[k] += 1; rep[k] = s
         for k, c in cnt.most_common(a.topm):
