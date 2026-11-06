@@ -68,6 +68,8 @@ def main():
     ap.add_argument('--gpu', default='1')
     ap.add_argument('--n', type=int, default=512)
     ap.add_argument('--extra', default=None, help='optional G1 candidates parquet (query_id, smiles)')
+    ap.add_argument('--topm', type=int, default=20, help='generated structures kept per query (amended 50 -> 20 before the '
+                    'v2 run, to match the kernel runtime budget)')
     a = ap.parse_args()
     dev = f'cuda:{a.gpu}'
     out = Path(a.run)
@@ -110,7 +112,7 @@ def main():
                 k = canonicalize_smiles_to_ik14(s)
                 if k and k not in have and k not in rep:
                     cnt[k] += 1; rep[k] = s
-        for k, c in cnt.most_common(50):
+        for k, c in cnt.most_common(a.topm):
             rows.append(dict(molecule_id=q, smiles=rep[k], key=k, count=c))
         if (i + 1) % 100 == 0:
             print(i + 1, 'generated', flush=True)

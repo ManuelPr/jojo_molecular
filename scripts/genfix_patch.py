@@ -71,6 +71,7 @@ def patch_cell39_gated(source, gate, gen_cfg):
         "import math as _gf_math\n"
         "_GF_GATE = " + repr(g) + "\n"
         "GF_STATS['gated'] = 0\n"
+        "GF_GATED = []\n"
         "def _gf_gate(mid, lib_max, smis):\n"
         "    _e = globals().get('ENG', {}); _p = globals().get('PC', {})\n"
         "    _es = list((_e.get(mid) or _e.get(str(mid)) or {}).get('smiles', []))\n"
@@ -79,13 +80,18 @@ def patch_cell39_gated(source, gate, gen_cfg):
         "    z = sum(c * (v - m) / s for c, v, m, s in zip(_GF_GATE['coef'], x, _GF_GATE['mean'], _GF_GATE['scale']))\n"
         "    fire = 1.0 / (1.0 + _gf_math.exp(-(z + _GF_GATE['intercept']))) > _GF_GATE['threshold']\n"
         "    GF_STATS['gated'] += int(fire)\n"
+        "    if fire: GF_GATED.append(str(mid))\n"
         "    return fire\n"
     )
     out = out.replace(call, "            if _gf_gate(mid, lib_max, smis):\n    " + call)
     old_assert = "assert GF_STATS['calls'] > 0 and"
     assert out.count(old_assert) == 1, 'GENFIX gated: stats assert anchor'
     out = out.replace(old_assert, "assert 'gated' in GF_STATS and")
-    out = out.replace("print('GENFIX', GF_STATS, flush=True)", "print('GENFIX GATED', GF_STATS, flush=True)")
+    out = out.replace("print('GENFIX', GF_STATS, flush=True)",
+                      "print('GENFIX GATED', GF_STATS, flush=True)\n"
+                      "import os as _gf_os, json as _gf_json\n"
+                      "if _gf_os.path.isdir('/kaggle/working'):\n"
+                      "    open('/kaggle/working/g3b_gated.json', 'w').write(_gf_json.dumps(GF_GATED))")
     i = out.index("GF_STATS = dict(")
     j = out.index("\n", i) + 1
     return out[:j] + pre + out[j:]
