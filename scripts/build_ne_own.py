@@ -16,9 +16,9 @@ START = 'PUB_BUNDLE = BUNDLE\n'
 END = "    print('ENSEMBLE neural = 0.5*z(public) + 0.5*z(ours)', flush=True)\n"
 NEW = r'''PUB_BUNDLE = BUNDLE
 import pathlib as _pl
-OWN_DIRS = sorted({str(p.parent) for p in _pl.Path('/kaggle/input').rglob('final_model.pt') if 'own-kit-scorers' in str(p)})
-assert len(OWN_DIRS) == 4 and all((_pl.Path(d) / 'config.json').is_file() for d in OWN_DIRS), ('OWN: expected 4 own scorers', OWN_DIRS)
-OURS_BUNDLE = [d for d in OWN_DIRS if d.endswith('own_w384_s7')][0]
+OWN_DIRS = sorted({str(p.parent) for p in _pl.Path('/kaggle/input').rglob('final_model.pt') if '__MATCH__' in str(p)})
+assert len(OWN_DIRS) == __NOWN__ and all((_pl.Path(d) / 'config.json').is_file() for d in OWN_DIRS), ('OWN: expected __NOWN__ own scorers', OWN_DIRS)
+OURS_BUNDLE = [d for d in OWN_DIRS if d.endswith('__BEST__')][0]
 print('OWN SCORERS', OWN_DIRS, 'best', OURS_BUNDLE, flush=True)
 BUNDLE = OURS_BUNDLE
 PIPELINE_DONE = run_public_pipeline()
@@ -60,7 +60,13 @@ def main():
     ap.add_argument('src')
     ap.add_argument('out')
     ap.add_argument('--slug', default='casmi26-ne-own4')
+    ap.add_argument('--dataset', default=DATASET)
+    ap.add_argument('--match', default='own-kit-scorers', help='substring of the attached dataset path holding the own scorers')
+    ap.add_argument('--n_own', type=int, default=4)
+    ap.add_argument('--best', default='own_w384_s7', help='scorer used where the original used bgunshui alone')
     a = ap.parse_args()
+    global NEW
+    NEW = NEW.replace('__MATCH__', a.match).replace('__NOWN__', str(a.n_own)).replace('__BEST__', a.best)
     src, out = Path(a.src), Path(a.out)
     nb = json.loads(next(src.glob('*.ipynb')).read_text())
     hits = 0
@@ -80,7 +86,7 @@ def main():
     meta.update(id=f'mperni/{a.slug}', title=a.slug.replace('-', ' '), code_file=f'{a.slug}.ipynb', is_private=True)
     meta.pop('id_no', None)
     meta['kernel_sources'] = []
-    meta['dataset_sources'] = [d for d in meta['dataset_sources'] if d] + [DATASET]
+    meta['dataset_sources'] = [d for d in meta['dataset_sources'] if d] + [a.dataset]
     out.mkdir(parents=True, exist_ok=True)
     (out/f'{a.slug}.ipynb').write_text(json.dumps(nb, indent=1))
     (out/'kernel-metadata.json').write_text(json.dumps(meta, indent=2) + '\n')

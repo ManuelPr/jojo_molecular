@@ -16,10 +16,17 @@ FILES = ['config.json', 'config_used.json', 'model.py', 'features.py', 'final_mo
 
 
 def main():
-    out = Path(sys.argv[1])
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument('out')
+    ap.add_argument('--scorers', default=','.join(SCORERS))
+    ap.add_argument('--id', default='mperni/casmi26-own-kit-scorers')
+    a = ap.parse_args()
+    out = Path(a.out)
+    scorers = a.scorers.split(',')
     out.mkdir(parents=True, exist_ok=True)
     manifest = {}
-    for s in SCORERS:
+    for s in scorers:
         d = out/s
         d.mkdir(exist_ok=True)
         for f in FILES:
@@ -37,7 +44,7 @@ def main():
         'sanpier/casmi-spectrum-model-v1 training kit (train.py / prepare.py / model.py / features.py, unchanged) on the '
         'competition train.parquet only (no external data). Driver: train_kit.py (prepare, then train with the overrides in '
         'each config.json). MANIFEST.json lists architecture, seed, best epoch, diagnostic MRR@25 and checkpoint SHA-256.\n')
-    (out/'dataset-metadata.json').write_text(json.dumps(dict(title='casmi26 own kit scorers', id='mperni/casmi26-own-kit-scorers',
+    (out/'dataset-metadata.json').write_text(json.dumps(dict(title=a.id.split('/')[1].replace('-', ' '), id=a.id,
                                                               licenses=[dict(name='CC0-1.0')]), indent=1))
     print(json.dumps(manifest, indent=1))
 
