@@ -68,9 +68,15 @@ def main():
     ap.add_argument('--gpu', default='1')
     ap.add_argument('--n', type=int, default=512)
     ap.add_argument('--extra', default=None, help='optional G1 candidates parquet (query_id, smiles)')
+    ap.add_argument('--gate_mode', choices=['g3b', 'all'], default='g3b')
+    ap.add_argument('--benches', default=None, help='comma list restricting BENCH (e.g. T1thin,T2np,T3np,K7)')
+    ap.add_argument('--tag', default='')
     ap.add_argument('--topm', type=int, default=20, help='generated structures kept per query (amended 50 -> 20 before the '
                     'v2 run, to match the kernel runtime budget)')
     a = ap.parse_args()
+    global BENCH
+    if a.benches:
+        BENCH = {b: BENCH[b] for b in a.benches.split(',')}
     dev = f'cuda:{a.gpu}'
     out = Path(a.run)
     gen = Generator(a.run, dev)
@@ -87,6 +93,8 @@ def main():
             spectra.append(pd.read_parquet(Path(r)/'effective_query_spectra.parquet'))
     spectra = pd.concat(spectra).drop_duplicates(['molecule_id', 'spectrum_id'])
     spectra['molecule_id'] = spectra.molecule_id.astype(str)
+    if a.gate_mode == 'all':      # diagnostic: every query of the benches listed in --benches (no gate)
+        fire = {b: pd.Series(True, index=list(lists[b])) for b in BENCH}
     gated = {q for b in BENCH for q, f in fire[b].items() if f and q in lists[b]}
     print('gated queries', {b: int(fire[b].sum()) for b in BENCH}, flush=True)
     sp = spectra[spectra.molecule_id.isin(gated)]
@@ -117,13 +125,13 @@ def main():
         if (i + 1) % 100 == 0:
             print(i + 1, 'generated', flush=True)
     G = pd.DataFrame(rows)
-    G.to_parquet(out/'g4_generated.parquet', index=False)
+    G.to_parquet(out/f'g4_generated{a.tag}.parquet', index=False)
     frame = pd.concat([pd.DataFrame([dict(molecule_id=q, smiles=s, baseline_rank=j + 1, processed=True) for q in gated for j, s in enumerate(allL[q])]),
                        pd.DataFrame(dict(molecule_id=G.molecule_id, smiles=G.smiles, baseline_rank=26 + G.groupby('molecule_id').cumcount(),
                                          processed=True))], ignore_index=True)
     sc = {}
     for name, bundle in (('pub', PUB), ('own', OWN)):
-        n = neural(bundle, frame, sp, out/f'g4_neural_{name}.parquet', dev)
+        n = neural(bundle, frame, sp, out/f'g4_neural_{name}{a.tag}.parquet', dev)
         g = n.groupby('molecule_id').neural_score
         sc[name] = ((n.neural_score - g.transform('mean')) / g.transform(lambda x: x.std(ddof=0)).clip(lower=1e-6)).to_numpy()
     n['ens'] = 0.5 * sc['pub'] + 0.5 * sc['own']
@@ -165,18 +173,19 @@ def main():
     groups = {'K6t2': ('K6', list(k6.index[k6.type_metric == 2])), 'K6t3': ('K6', list(k6.index[k6.type_metric == 3])),
               'K7': ('K7', list(k7)), 'T1': ('T1', list(t1.index)), 'T1thin': ('T1thin', list(t1.index)),
               'T2np': ('T2np', list(cv2)), 'T3np': ('T3np', list(cv2))}
-    groups = {g: (b, [q for q in qs if truths[b].get(q) not in leak or g in ('T1', 'T1thin', 'K6t2')]) for g, (b, qs) in groups.items()}
+    groups = {g: (b, [q for q in qs if truths[b].get(q) not in leak or g in ('T1', 'T1thin', 'K6t2')])
+              for g, (b, qs) in groups.items() if b in BENCH}
     print('queries per group after generator-leak filter', {g: len(qs) for g, (b, qs) in groups.items()}, flush=True)
 
     def evaluate(v, split):
         return {g: compare(lists[b], v[b], truths[b], mk, [q for q in qs if q in lists[b] and (split == 'all' or k11.half(q) == split)])
                 for g, (b, qs) in groups.items()}
     cal = {k: evaluate(v, 'cal') for k, v in variants.items()}
-    obj = {k: sum(MIX[g] * cal[k][g]['delta'] for g in MIX) for k in variants}
+    obj = {k: sum(MIX[g] * cal[k][g]['delta'] for g in MIX if g in cal[k]) for k in variants}
     sel = max(obj, key=obj.get)
     rep = dict(gated={b: int(fire[b].sum()) for b in BENCH}, generated_rows=len(G), cal_objective=obj, selected=sel,
                ver=evaluate(variants[sel], 'ver'), all={k: evaluate(v, 'all') for k, v in variants.items()})
-    (out/'g4_insert.json').write_text(json.dumps(rep, indent=1, default=float))
+    (out/f'g4_insert{a.tag}.json').write_text(json.dumps(rep, indent=1, default=float))
     print(json.dumps(dict(cal_objective=obj, selected=sel), indent=1))
     for g, v in rep['ver'].items():
         print('ver', sel, g, {x: (round(y, 4) if isinstance(y, float) else y) for x, y in v.items()}, flush=True)
